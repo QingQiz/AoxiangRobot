@@ -3,7 +3,8 @@
 """
 自动评教
 """
-
+import sys
+import getpass
 from selenium import webdriver
 from selenium.common.exceptions import *
 from time import sleep
@@ -11,8 +12,14 @@ from time import sleep
 userName = '2017302344'
 password = open('.password').read().strip('\n')
 
+if len(sys.argv) == 2:
+    if sys.argv[1] == '-i':
+        userName = input("UserName:________\b\b\b\b\b\b\b\b")
+        password = getpass.getpass('Password:')
+
 d = webdriver.Chrome()
 d.get('http://us.nwpu.edu.cn/eams/login.action')
+
 
 while True:
     try:
@@ -55,4 +62,4 @@ while True:
     except NoSuchElementException:
         sleep(1)
 
-# d.close()
+d.close()
