@@ -4,9 +4,8 @@
     get exam info from 翱翔门户
     contains 考试安排 and 考试成绩
 """
-import sys
-import getpass
 import requests
+from functions import getUserName_Password
 from bs4 import BeautifulSoup
 
 
@@ -23,12 +22,7 @@ def format_string(string, num):
     return ret
 
 
-userName = '2017302344'
-password = open('.password', 'r').read().strip('\n')
-if len(sys.argv) == 2:
-    if sys.argv[1] == '-i':
-        userName = input("UserName:________\b\b\b\b\b\b\b\b")
-        password = getpass.getpass('Password:')
+userName, password = getUserName_Password.get(True)
 
 headers = {}
 dataLogin = {

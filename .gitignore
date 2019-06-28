@@ -1,2 +1,4 @@
 .password
 .idea
+ghostdriver.log
+functions/__pycache__
