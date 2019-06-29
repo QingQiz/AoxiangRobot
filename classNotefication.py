@@ -9,7 +9,7 @@ from functions import getUserName_Password
 userName, password = getUserName_Password.get(default=True)
 
 chromeOption = webdriver.ChromeOptions()
-chromeOption.add_argument('headless')
+# chromeOption.add_argument('headless')
 d = webdriver.Chrome(options=chromeOption)
 d.get('http://us.nwpu.edu.cn/eams/login.action')
 
@@ -59,13 +59,15 @@ while True:
         xpath = '/html/body/div[2]/div[3]/div[3]/div[1]/table/tbody/tr/td/div/div/table/tbody'
         table = d.find_element_by_xpath(xpath)
         l = len(d.find_elements_by_xpath(xpath + '/tr[*]'))
-        #     课程名称 安排 起止周
-        infoIndex = [4, 8, 9,]
+        #       课程名称 安排 起止周 教师
+        infoIndex = [4,   8,    9,    5]
 
         for i in range(l):
             data = lambda y: \
                     d.find_element_by_xpath(xpath + '/tr[{}]/td[{}]'.format(i + 1, infoIndex[y])).text
 
+            if data(3) == '在线开放课程':
+                continue
             for c in data(1).split('\n'):
                 name = data(0)
                 res += name + '\t'
