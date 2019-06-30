@@ -22,7 +22,7 @@ def format_string(string, num):
     return ret
 
 
-userName, password = getUserName_Password.get(True)
+userName, password = getUserName_Password.get(is_input=False)
 
 headers = {}
 dataLogin = {

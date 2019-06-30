@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 
+import json
 from time import sleep
 from selenium import webdriver
 from selenium.common.exceptions import *
-from selenium.webdriver.support.select import Select
 from functions import getUserName_Password
 
-userName, password = getUserName_Password.get(default=True)
+userName, password = getUserName_Password.get(is_input=False)
 
-chromeOption = webdriver.ChromeOptions()
-# chromeOption.add_argument('headless')
-d = webdriver.Chrome(options=chromeOption)
+option = webdriver.ChromeOptions()
+# option.add_argument('headless')
+d = webdriver.Chrome(options=option)
 d.get('http://us.nwpu.edu.cn/eams/login.action')
 
 while True:
@@ -22,28 +22,13 @@ while True:
         break
     except NoSuchElementException:
         sleep(1)
-"""
-while True:
-    try:
-        week = d.find_element_by_xpath('//*[@id="Nav_bar"]/div[3]/div').text.split('。')
-        today = week[1].strip('\n').split('/')[1].split(',')[0]
-        week = week[2].strip('\n').split(' ')[2][1:]
-        week = week[0:2] if ('0' <= week[1] <= '9') else week[0:1]
-        print(today, week)
 
-        today = "星期三"
-        week = "1"
-        week_sel = d.find_element_by_xpath('//*[@id="startWeek"]')
-        Select(week_sel).select_by_value(week)
-        break
-    except NoSuchElementException:
-        sleep(1)
-"""
 d.delete_cookie('semester.id')
 d.add_cookie({'name': 'semester.id', 'value': '19', 'path': '/eams/'})
 d.get('http://us.nwpu.edu.cn/eams/')
+sleep(1)
 
-res = 'className\tstartWeek\tendWeek\tweekday\tclassEND\tclassSTART\tclassroom\tinterval\n'
+res = []
 dic = {
     "星期一": "1",
     "星期二": "2",
@@ -55,14 +40,13 @@ dic = {
 }
 while True:
     try:
-        #print(d.get_cookies())
         xpath = '/html/body/div[2]/div[3]/div[3]/div[1]/table/tbody/tr/td/div/div/table/tbody'
         table = d.find_element_by_xpath(xpath)
-        l = len(d.find_elements_by_xpath(xpath + '/tr[*]'))
+        trs = len(d.find_elements_by_xpath(xpath + '/tr[*]'))
         #       课程名称 安排 起止周 教师
         infoIndex = [4,   8,    9,    5]
 
-        for i in range(l):
+        for i in range(trs):
             data = lambda y: \
                     d.find_element_by_xpath(xpath + '/tr[{}]/td[{}]'.format(i + 1, infoIndex[y])).text
 
@@ -70,20 +54,27 @@ while True:
                 continue
             for c in data(1).split('\n'):
                 name = data(0)
-                res += name + '\t'
-
                 week = data(2).split('-')
-                res += week[0] + '\t' + week[1] + '\t'
-
                 infoList = c.split(' ')
-                res += dic[infoList[1]] + '\t'
                 time = infoList[2].split('-')
-                res += time[1] + '\t' + time[0] + '\t'
-                res += infoList[-1] + '\t1\n'
+
+                res.append({
+                    "name": name,
+                    "week": {
+                        "start": week[0],
+                        "end": week[1]
+                    },
+                    "day": dic[infoList[1]],
+                    "time": {
+                        "start": time[0],
+                        "end": time[1],
+                    },
+                    "room": infoList[-1]
+                })
 
         print(res)
-        with open('res.tab', 'w') as f:
-            f.write(res)
+        with open('settings/classInfo.json', 'w') as f:
+            json.dump(res, f, indent=4, ensure_ascii=False)
 
         break
     except NoSuchElementException:

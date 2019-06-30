@@ -2,3 +2,5 @@
 .idea
 ghostdriver.log
 functions/__pycache__
+.info
+geckodriver.log

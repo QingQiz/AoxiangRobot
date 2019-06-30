@@ -8,7 +8,7 @@ from selenium.common.exceptions import *
 from time import sleep
 from functions import getUserName_Password
 
-userName, password = getUserName_Password.get(False)
+userName, password = getUserName_Password.get(is_input=False)
 
 d = webdriver.Chrome()
 d.get('http://us.nwpu.edu.cn/eams/login.action')
