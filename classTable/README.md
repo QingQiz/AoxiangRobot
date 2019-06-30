@@ -7,6 +7,7 @@
 最后运行`classTable.py`即可生成一个名为`res.ics`的日历文件，导入即可
 
 效果图
+
 ![](material/screenshot.png)
 
 ### 配置文件的格式
