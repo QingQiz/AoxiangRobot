@@ -8,7 +8,7 @@
 
 效果图
 
-![](material/screenshot.png)
+![](material/screenshot.jpg)
 
 ### 配置文件的格式
 
