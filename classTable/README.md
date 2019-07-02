@@ -1,10 +1,21 @@
 ### 总述
 
-如果你是西北工业大学的学生，请先运行`GetClass.py`
+- 对于 **西北工业大学** 的学生
 
-否则需要修改`settings/classInfo.json`和`settings/ClassTimeSetting.json`
+  你可以运行 `GetClass.py` 脚本以从教务系统爬去你的课程信息
 
-最后运行`classTable.py`即可生成一个名为`res.ics`的日历文件，导入即可
+- 对于其他学校的学生
+
+  你需要修改`settings/classInfo.json`和`settings/ClassTimeSetting.json`
+
+  或修改`settings/classInfo.xlsx`和`settings/ClassTimeSetting.xlsx`
+
+  当你修改xlsx文件后, 需要运行`ReadExcel.py`来生成所需要的配置文件
+
+
+- 对于所有人
+
+  当你获取到所有的信息后运行`classTable.py`生成一个名为`res.ics`的日历文件，导入你的日历应用
 
 效果图
 
@@ -58,3 +69,4 @@
 
   - 其中`time`字段的`start`和`end`配合上述`ClassTimeSetting.json`使用
 
+- 两个表格

@@ -8,52 +8,51 @@
     },
     {
         "name": "2",
-        "offset": "10",
-        "during": "45"
+        "during": "45",
+        "offset": "10"
     },
     {
         "name": "3",
-        "offset": "20",
-        "during": "45"
+        "during": "45",
+        "offset": "20"
     },
     {
         "name": "4",
-        "offset": "10",
-        "during": "45"
+        "during": "45",
+        "offset": "10"
     },
     {
         "name": "5",
-        "offset": "10",
-        "during": "45"
+        "during": "45",
+        "offset": "10"
     },
     {
         "name": "6",
-        "offset": "0",
-        "during": "45"
+        "during": "45",
+        "offset": "0"
     },
-        {
+    {
         "name": "7",
-        "offset": "10",
-        "during": "45"
+        "during": "45",
+        "offset": "10"
     },
     {
         "name": "8",
-        "offset": "10",
-        "during": "45"
+        "during": "45",
+        "offset": "10"
     },
     {
         "name": "9",
-        "offset": "20",
-        "during": "45"
+        "during": "45",
+        "offset": "20"
     },
     {
         "name": "10",
-        "offset": "10",
-        "during": "45"
+        "during": "45",
+        "offset": "10"
     },
     {
         "name": "11",
-        "offset": "10",
         "during": "45",
         "time": {
             "start": "1900"
@@ -61,12 +60,12 @@
     },
     {
         "name": "12",
-        "offset": "10",
-        "during": "45"
+        "during": "45",
+        "offset": "10"
     },
     {
         "name": "13",
-        "offset": "0",
-        "during": "45"
+        "during": "45",
+        "offset": "0"
     }
 ]
