@@ -5,6 +5,8 @@ import json
 from time import sleep
 from selenium import webdriver
 from selenium.common.exceptions import *
+import sys
+sys.path.append('..')
 from functions import getUserName_Password
 
 userName, password = getUserName_Password.get(is_input=False)
