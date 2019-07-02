@@ -5,6 +5,8 @@
     contains 考试安排 and 考试成绩
 """
 import requests
+import sys
+sys.path.append('..')
 from functions import getUserName_Password
 from bs4 import BeautifulSoup
 
