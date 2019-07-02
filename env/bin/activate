@@ -40,7 +40,9 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/home/angel/workspace/robot/aoxiang/env"
+DIR_FOLDER=$( dirname $0 )
+
+VIRTUAL_ENV=$( cd "$DIR_FOLDER/.."; pwd  )
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
@@ -76,3 +78,4 @@ pydoc () {
 if [ -n "${BASH-}" ] || [ -n "${ZSH_VERSION-}" ] ; then
     hash -r 2>/dev/null
 fi
+# vim: ft=sh
