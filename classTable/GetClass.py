@@ -57,23 +57,24 @@ while True:
                 continue
             for c in data(1).split('\n'):
                 name = data(0)
-                week = data(2).split('-')
-                infoList = c.split(' ')
-                time = infoList[2].split('-')
+                for week in data(2).split(','):
+                    week = week.split('-')
+                    infoList = c.split(' ')
+                    time = infoList[2].split('-')
 
-                res.append({
-                    "name": name,
-                    "week": {
-                        "start": week[0],
-                        "end": week[1]
-                    },
-                    "day": dic[infoList[1]],
-                    "time": {
-                        "start": time[0],
-                        "end": time[1],
-                    },
-                    "room": infoList[-1]
-                })
+                    res.append({
+                        "name": name,
+                        "week": {
+                            "start": week[0],
+                            "end": week[1]
+                        },
+                        "day": dic[infoList[1]],
+                        "time": {
+                            "start": time[0],
+                            "end": time[1],
+                        },
+                        "room": infoList[-1]
+                    })
 
         print(res)
         with open('settings/classInfo.json', 'w') as f:
