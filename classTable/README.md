@@ -21,6 +21,15 @@
 
 ![](material/screenshot.jpg)
 
+### 依赖库
+
+- python
+  - selenium
+  - xlrd
+
+- chrome
+  - chromedriver
+
 ### 配置文件的格式
 
 - settings/ClassTimeSetting.json
