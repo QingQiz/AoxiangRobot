@@ -69,8 +69,10 @@ if __name__ == '__main__':
     try:
         term_start = input('The date of Monday of the first week of school(20190826):________\b\b\b\b\b\b\b\b')
     except KeyboardInterrupt:
-        print('interrupted. exiting...')
+        print('\ninterrupted. exiting...')
         exit(0)
+    if term_start == '':
+        term_start = '20190826'
     try:
         y = int(term_start[0:4])
         m = int(term_start[4:6])

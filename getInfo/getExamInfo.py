@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-    get exam info from 翱翔门户
-    contains 考试安排 and 考试成绩
+从翱翔门户获取考试安排和考试成绩
 """
-import requests
 import sys
 sys.path.append('..')
-from functions import getUserName_Password
 from bs4 import BeautifulSoup
+from functions import AoxiangInfo
+
+urlGrade = 'http://us.nwpu.edu.cn/eams/teach/grade/course/person!search.action?semesterId=36'
+urlExam = 'http://us.nwpu.edu.cn/eams/stdExamTable!examTable.action?examBatch.id=382'
 
 
 def format_string(string, num):
@@ -24,24 +25,8 @@ def format_string(string, num):
     return ret
 
 
-userName, password = getUserName_Password.get(is_input=False)
-
-headers = {}
-dataLogin = {
-    'username': userName,
-    'password': password,
-    'session_locale': 'zh_CN',
-}
-urlLogin = 'http://us.nwpu.edu.cn/eams/login.action'
-urlGrade = 'http://us.nwpu.edu.cn/eams/teach/grade/course/person!search.action?semesterId=36'
-urlExam = 'http://us.nwpu.edu.cn/eams/stdExamTable!examTable.action?examBatch.id=382'
-
-conn = requests.session()
-conn.post(url=urlLogin, data=dataLogin, headers=headers)
-
-
 def get_grade():
-    soup = BeautifulSoup(conn.get(urlGrade, headers=headers).text, features='html5lib')
+    soup = BeautifulSoup(AoxiangInfo.get(urlGrade), features='html5lib')
     long_len, short_len = 22, 10
     result = ''
     line = format_string('', long_len)
@@ -59,7 +44,7 @@ def get_grade():
 
 
 def get_exam():
-    soup = BeautifulSoup(conn.get(urlExam, headers=headers).text, features='html5lib')
+    soup = BeautifulSoup(AoxiangInfo.get(urlExam), features='html5lib')
     long_len, short_len = 22, 15
     result = ''
     line = ''
@@ -80,9 +65,9 @@ def get_exam():
     return result
 
 
-print('\n===========================================================================================================\n')
+print('\n' + 107 * '=' + '\n')
 print(get_exam())
-print('===========================================================================================================\n')
+print(107 * '=' + '\n')
 print(get_grade())
-print('===========================================================================================================\n')
+print(107 * '=' + '\n')
 

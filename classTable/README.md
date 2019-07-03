@@ -24,11 +24,9 @@
 ### 依赖库
 
 - python
-  - selenium
+  - requests
+  - lxml
   - xlrd
-
-- chrome
-  - chromedriver
 
 ### 配置文件的格式
 
