@@ -31,6 +31,7 @@ for i in time_table_js:
     })
 
 
+
 head = open('material/HEAD').read().strip('\n')
 body = []
 body_template = open('material/BODY').read().strip('\n')
@@ -55,7 +56,7 @@ def format_template(name, tstart, tend, room, alarm):
 
 def format_date(date, time):
     f = lambda x: format(str(x), '0>2')
-    return f(date.year) + f(date.month) + f(date.day) + 'T' + time + '00Z'
+    return f(date.year) + f(date.month) + f(date.day) + 'T' + time + '00'
 
 
 def get_time(d):
