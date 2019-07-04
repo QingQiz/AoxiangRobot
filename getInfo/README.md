@@ -5,6 +5,4 @@
 - python
   - requests
   - bs4
-  - beautifulsoup4
   - html5lib
-  - urllib3
