@@ -26,7 +26,7 @@
                     "presentation and understanding",
                     "in relationship to the job",
                     "some examples",
-                    "dealing with promblems"
+                    "dealing with problems"
                 ]
             },
             "4": {
@@ -156,6 +156,156 @@
         "UT":{
             "type":1,
             "answer":"CADBBDAACABABC"
+        }
+    },
+    "3":{
+        "OV": {
+            "1": {
+                "type": 1,
+                "answer": "BBCAD"
+            },
+            "2":{
+                "type": 3,
+                "answer":"HCGFDAEB"
+            },
+            "3":{
+                "type": 5,
+                "answer": [
+                    "Because they fitted really well.",
+                    "In New Bond Street",
+                    "She think London has a more casual style",
+                    "Camden is known for its daring and sometimes outrageous styles"
+                ]
+            }
+        },
+        "LS":{
+            "1":{ 
+                "type": 1,
+                "answer": "DBA"
+            },
+            "2":{
+                "type": 1,
+                "answer": "BCA"
+            },
+            "3":{
+                "type": 5
+            },
+            "4":{
+                "type":1,
+                "answer": "BCAB"
+            },
+            "5":{
+                "type":2,
+                "answer": [
+                    "the leading designer",
+                    "the clothes",
+                    "a symbol",
+                    "with a shoulder strap",
+                    "integrated with",
+                    "casual look",
+                    "lasts and evolves",
+                    "surpasses"
+                ]
+            }
+        },
+        "UT":{
+            "type":1,
+            "answer":"DAACBBCDDBCDAB"
+        }
+    },
+    "4": {
+        "OV": {
+            "1": {
+                "type": 0,
+                "answer": "467"
+            },
+            "2": {
+                "type": 1,
+                "answer": "BACCB"
+            },
+            "3": {
+                "type": 3,
+                "answer": "5621374"
+            },
+            "4": {
+                "type": 2,
+                "answer": [
+                    "not happy",
+                    "make all of that better",
+                    "thinks about money",
+                    "of having the money",
+                    "would get solved",
+                    "gives us more choices"
+                ]
+            }
+        },
+        "LS": {
+            "1": {
+                "type": 1,
+                "answer": "DBDC"
+            }, 
+            "2": {
+                "type": 1,
+                "answer": "DBC"
+            },
+            "3": {
+                "type": 5,
+                "answer": [
+                    "They were exchanging metals for goods.",
+                    "They first appeared in Europe.",
+                    "Coins appeared in Lydia around 700 BC.",
+                    "The drachma was used as a standard form of money in large parts of Asia and Europe.",
+                    "Around 960 AD, in China.",
+                    "They can be seen as carly banks.",
+                    "It was applied all over the world."
+                ]
+            },
+            "4": {
+                "type": 2,
+                "answer": [
+                    "we exchanged things",
+                    "exchange don't last",
+                    "a lot easier to use",
+                    "the appeared",
+                    "producing them",
+                    "a big advantage of",
+                    "has a certain value",
+                    "exchanged the grain",
+                    "a certain amount of silver",
+                    "1870-1915"
+                ]
+            },
+            "5": {
+                "type": 3,
+                "answer": "3527614"
+            },
+            "6": {
+                "type": 1,
+                "answer": "BAAAC"
+            }
+        },
+        "UT": {
+            "type": 1,
+            "answer": "BCDABCABCBABAB"
+        }
+    },
+    "5": {
+        "OV": {
+            "1": {
+                "type": 1,
+                "answer": "BDDCC"
+            },
+            "2": {
+                "type": 2,
+                "answer": [
+                    "economic and political sectors",
+                    "division of",
+                    "teaching and nursing^make their own money",
+                    "in the number of",
+                    "looked after",
+                    "far from perfect"
+                ]
+            }
         }
     }
 }
