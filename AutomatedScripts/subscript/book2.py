@@ -3,6 +3,10 @@
 
 import re
 import json
+from time import sleep
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.select import Select
+from selenium.common.exceptions import *
 
 
 def find(d, s):
@@ -22,27 +26,28 @@ def go_next(d):
 
 
 def submit(d):
-    find(d, '//*[@id="unipus"]/div/div[3]/div[2]/input').click()
-    # XXX can be faster when there is no need an acception
-    try:
-        find(d, '//*[@id="unipus"]/div/div[3]/div[2]/div/div[2]/input[1]').click()
-    except:
-        pass
+    # submit
+    find(d, '//*[@class="submit"]').click()
+    # alter switch yes
+    if find(d, '//*[@class="submit"]').get_attribute('id') != 'answer':
+        find(d, '//*[@class"dialogDiv ui-draggable"]//*[@value=="Yes"]').click()
 
 
-def by_type(d, answer={'type': -1}):
+def by_type_do(d, answer):
     # choose from severl boxes
     if answer['type'] == 0:
+        sleep(0.5)
         for i in answer['answer']:
-            find(d, '//*[@id="unipus"]/div/div[3]/div[1]/div/\
-                    div[2]/div/ul/li[{}]'.format(i)).click()
+            find(d, '//*[@id="unipus"]/div//*[@value="{}"]'.format(i)).click()
+            sleep(0.05)
         submit(d)
     # multiple choice question
     elif answer['type'] == 1:
-        cnt = 1
+        cnt = 0
+        all_opitions = finds(d, '//*[@type="radio"]')
         for i in answer['answer']:
-            find(d, '//*[@id="unipus"]/div/div[3]/div[2]/div/div/ul/li[{}]\
-                    //*[@value="{}"]'.format(cnt, i)).click()
+            offset = {'A': 1, 'B': 2, 'C': 3, 'D': 4}[i]
+            all_opitions[cnt * 4 + offset - 1].click()
             cnt += 1
         submit(d)
     # fill in the blanks
@@ -55,15 +60,59 @@ def by_type(d, answer={'type': -1}):
         submit(d)
     # drag and sort
     elif answer['type'] == 3:
-        pass
-    # switch from a table
+        dv = lambda v: \
+                '//*[@id="unipus"]/div/div[3]//*[@data-value="{}"]'.format(v)
+        action = ActionChains(d)
+
+        pre = 'A'
+        for now in reversed(answer['answer']):
+            if now in '123456789':
+                now = 'ABCDEFGHI'[int(now) - 1]
+            action.drag_and_drop(find(d, dv(now)), find(d, dv(pre)))
+            pre = now
+        action.perform()
+        submit(d)
+    # fill in the blanks at a table
     elif answer['type'] == 4:
-        pass
-    # fill in the blanks in a table
+        rt_path = '//*[@id="unipus"]/div/div[3]/div[2]/div/div/table/tbody'
+        width = len(finds(d, rt_path + '/tr[1]/td'))
+        high = len(finds(d, rt_path + '/tr/td[1]'))
+        cnt = 0
+        for i in range(width):
+            for j in range(high):
+                path = rt_path + '/tr[{}]/td[{}]'.format(j + 1, i + 1)
+                item = find(d, path)
+                if len(re.findall('\(\d\)', item.text)) != 0:
+                    find(d, path + '//input').send_keys(answer['answer'][cnt])
+                    cnt += 1
     # text area
     elif answer['type'] == 5:
-        pass
+        cnt = 1
+        textarea = finds(d, '//*[@id="unipus"]/div/div[3]/div[1]//textarea')
+        for i in answer['answer']:
+            textarea[cnt].send_keys(i)
+            cnt += 1
+        submit(d)
+    # switch
+    elif answer['type'] == 6:
+        cnt = 0
+        for i in finds(d, '//*[@id="unipus"]/div/div[3]/div[2]//select'):
+            Select(d).select_by_value(answer['answer'][cnt])
+            cnt += 1
     # no answer or skip
+
+
+def by_type(d, answer):
+    try:
+        by_type_do(d, answer)
+    except ElementClickInterceptedException:
+        sleep(1)
+        by_type_do(d, answer)
+
+
+
+def check_url(url):
+    return re.search('S\d_\d$', url).group(0).split('_')[0].split('S')[-1]
 
 
 def run(d):
@@ -76,11 +125,31 @@ def run(d):
     answer = json.load(open('answer/' + bookID + '.json'))
 
     for unit in range(1, 9):
+        unit_answer = answer[str(unit)]
         url = url_base.format(unit)
+
+        ## outside view
         d.get(url)
-        # outside view
         path = '//*[@id="unipus"]/div/div[3]/div[1]/div[2]/div[2]/div/div/div/\
                 ul/li[1]/a'
         d.get(find(d, path).get_attribute('href'))
+        ov_answer = unit_answer['OV']
+        for i in ov_answer:
+            by_type(d, ov_answer[i])
+            go_next(d)
+        while str(check_url(d.current_url)) == '2':
+            go_next(d)
 
+        ## Listening
+        ls_answer = unit_answer['LS']
+        for i in ls_answer:
+            by_type(d, ls_answer[i])
+            go_next(d)
+        while str(check_url(d.current_url)) == '3':
+            go_next(d)
+        ## Unit test
+        d.get(url)
+        find(d, '//*[@href="#!/S6_1"]').click()
+        ut_answer = unit_answer['UT']
+        by_type(d, ut_answer)
 

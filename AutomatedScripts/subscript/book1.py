@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 import re
 import json
+from time import sleep
+from selenium.common.exceptions import *
 
 
 def get_bookID(s):
@@ -22,10 +24,10 @@ def go_next(d):
 
 def submit(d):
     find(d, '//*[@class="bottomButton"]/a[1]').click()
-    # TODO there may be an alter
+    # FIXME there may be an alter
 
 
-def by_type(d, answer={'type': -1}):
+def by_type_do(d, answer):
     # multiple choice question
     if answer['type'] == 0:
         blk_num = 6
@@ -52,6 +54,14 @@ def by_type(d, answer={'type': -1}):
             cnt += 1
         submit(d)
     # no answer or skip
+
+
+def by_type(d, answer):
+    try:
+        by_type_do(d, answer)
+    except ElementClickInterceptedException:
+        sleep(1)
+        by_type_do(d, answer)
 
 
 def run(d):

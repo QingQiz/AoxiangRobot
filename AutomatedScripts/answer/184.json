@@ -1,3 +1,84 @@
 {
-    "1":"1"
+    "1": {
+        "OV": {
+            "1": {
+                "type": 0,
+                "answer": "1234"
+            },
+            "2": {
+                "type": 2,
+                "answer": [
+                    "interview techniques",
+                    "lead",
+                    "in",
+                    "looking for",
+                    "boils down"
+                ]
+            },
+            "3": {
+                "type": 2,
+                "answer": [
+                    "professional job coach",
+                    "doing research",
+                    "practiced with",
+                    "present yourself",
+                    "interviewer",
+                    "presentation and understanding",
+                    "in relationship to the job",
+                    "some examples",
+                    "dealing with promblems"
+                ]
+            },
+            "4": {
+                "type": 0,
+                "answer": [
+                    "1","3","5","7","8","9","10","11"
+                ]
+            }
+        },
+        "LS": {
+            "1": {
+                "type": 1,
+                "answer": "BCAC"
+            },
+            "2": {
+                "type": 1,
+                "answer": "CAD"
+            },
+            "3": {
+                "type": 0,
+                "answer": [
+                    "7",
+                    "8",
+                    "18",
+                    "20",
+                    "29",
+                    "30"
+                ]
+            },
+            "4": {
+                "type": "1",
+                "answer": "BDADC"
+            },
+            "5": {
+                "type": 4,
+                "answer": [
+                    "open-necked",
+                    "first",
+                    "5",
+                    "twice",
+                    "pension",
+                    "work longer",
+                    "1",
+                    "not paid",
+                    "60",
+                    "company car"
+                ]
+            }
+        },
+        "UT": {
+            "type": 1,
+            "answer": "DBACABCDADBDBC"
+        }
+    }
 }
