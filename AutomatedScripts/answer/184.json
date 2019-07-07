@@ -80,5 +80,82 @@
             "type": 1,
             "answer": "DBACABCDADBDBC"
         }
+    },
+    "2": {
+        "OV":{
+            "1":{
+                "type":0,
+                "answer":"346"
+            },
+            "2":{
+                "type":5,
+                "answer":[
+                    "It's best suited to the download generation.",
+                    "Although the interview says \"No one in the industry is suggesting the conventional bookshop is dead\", the figures discussed indicate that the conventional bookshop will lose out to digital publishing.",
+                    "Downloadable books sell more than hardbacks and paperbacks.",
+                    "The e-book is delivered in a very convenient way."
+                ]
+            },
+            "3":{
+                "type":2,
+                "answer":[
+                    "undergoing a fundamental change",
+                    "600",
+                    "consuming content",
+                    "get it edited",
+                    "click of a few buttons",
+                    "earing money",
+                    "for an author",
+                    "never really catch on"
+                ]
+            }
+        }, 
+        "LS":{
+            "1":{
+                "type":1,
+                "answer":"BDAD"
+            },
+            "2":{
+                "type":1,
+                "answer":"CBA"
+            },
+            "3":{
+                "type":2,
+                "answer":[
+                    "20",
+                    "once",
+                    "10",
+                    "discussing",
+                    "travel writing"
+                ]
+            },
+            "4":{
+                "type":1,
+                "answer":"DACB"
+            },
+            "5":{
+                "type":3,
+                "answer":"BGEADFC"
+            },
+            "6":{
+                "type":2,
+                "answer":[
+                    "literary specialist",
+                    "close links",
+                    "well known writers",
+                    "the memorial",
+                    "literary history",
+                    "recent series of films",
+                    "the home of",
+                    "successful films",
+                    "English-speaking world",
+                    "contributes to"
+                ]
+            }
+        },
+        "UT":{
+            "type":1,
+            "answer":"CADBBDAACABABC"
+        }
     }
 }
