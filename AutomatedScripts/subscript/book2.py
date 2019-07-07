@@ -39,7 +39,7 @@ def by_type_do(d, answer):
         sleep(0.5)
         for i in answer['answer']:
             find(d, '//*[@id="unipus"]/div//*[@value="{}"]'.format(i)).click()
-            sleep(0.05)
+            sleep(0.08)
         submit(d)
     # multiple choice question
     elif answer['type'] == 1:
@@ -53,8 +53,7 @@ def by_type_do(d, answer):
     # fill in the blanks
     elif answer['type'] == 2:
         cnt = 0
-        for i in finds(d, '//*[@id="unipus"]/div/div[3]/div[1]/div/div[2]/div/ul\
-                //input'):
+        for i in finds(d, '//*[@id="unipus"]/div/div[3]//*[@type="text"]'):
             i.send_keys(answer['answer'][cnt])
             cnt += 1
         submit(d)
@@ -87,7 +86,7 @@ def by_type_do(d, answer):
                     cnt += 1
     # text area
     elif answer['type'] == 5:
-        cnt = 1
+        cnt = 0
         textarea = finds(d, '//*[@id="unipus"]/div/div[3]/div[1]//textarea')
         for i in answer['answer']:
             textarea[cnt].send_keys(i)
