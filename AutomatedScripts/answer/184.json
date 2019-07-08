@@ -32,7 +32,14 @@
             "4": {
                 "type": 0,
                 "answer": [
-                    "1","3","5","7","8","9","10","11"
+                    "1",
+                    "3",
+                    "5",
+                    "7",
+                    "8",
+                    "9",
+                    "10",
+                    "11"
                 ]
             }
         },
@@ -82,23 +89,23 @@
         }
     },
     "2": {
-        "OV":{
-            "1":{
-                "type":0,
-                "answer":"346"
+        "OV": {
+            "1": {
+                "type": 0,
+                "answer": "346"
             },
-            "2":{
-                "type":5,
-                "answer":[
+            "2": {
+                "type": 5,
+                "answer": [
                     "It's best suited to the download generation.",
                     "Although the interview says \"No one in the industry is suggesting the conventional bookshop is dead\", the figures discussed indicate that the conventional bookshop will lose out to digital publishing.",
                     "Downloadable books sell more than hardbacks and paperbacks.",
                     "The e-book is delivered in a very convenient way."
                 ]
             },
-            "3":{
-                "type":2,
-                "answer":[
+            "3": {
+                "type": 2,
+                "answer": [
                     "undergoing a fundamental change",
                     "600",
                     "consuming content",
@@ -109,19 +116,19 @@
                     "never really catch on"
                 ]
             }
-        }, 
-        "LS":{
-            "1":{
-                "type":1,
-                "answer":"BDAD"
+        },
+        "LS": {
+            "1": {
+                "type": 1,
+                "answer": "BDAD"
             },
-            "2":{
-                "type":1,
-                "answer":"CBA"
+            "2": {
+                "type": 1,
+                "answer": "CBA"
             },
-            "3":{
-                "type":2,
-                "answer":[
+            "3": {
+                "type": 2,
+                "answer": [
                     "20",
                     "once",
                     "10",
@@ -129,17 +136,17 @@
                     "travel writing"
                 ]
             },
-            "4":{
-                "type":1,
-                "answer":"DACB"
+            "4": {
+                "type": 1,
+                "answer": "DACB"
             },
-            "5":{
-                "type":3,
-                "answer":"BGEADFC"
+            "5": {
+                "type": 3,
+                "answer": "BGEADFC"
             },
-            "6":{
-                "type":2,
-                "answer":[
+            "6": {
+                "type": 2,
+                "answer": [
                     "literary specialist",
                     "close links",
                     "well known writers",
@@ -153,22 +160,22 @@
                 ]
             }
         },
-        "UT":{
-            "type":1,
-            "answer":"CADBBDAACABABC"
+        "UT": {
+            "type": 1,
+            "answer": "CADBBDAACABABC"
         }
     },
-    "3":{
+    "3": {
         "OV": {
             "1": {
                 "type": 1,
                 "answer": "BBCAD"
             },
-            "2":{
+            "2": {
                 "type": 3,
-                "answer":"HCGFDAEB"
+                "answer": "HCGFDAEB"
             },
-            "3":{
+            "3": {
                 "type": 5,
                 "answer": [
                     "Because they fitted really well.",
@@ -178,16 +185,16 @@
                 ]
             }
         },
-        "LS":{
-            "1":{ 
+        "LS": {
+            "1": {
                 "type": 1,
                 "answer": "DBA"
             },
-            "2":{
+            "2": {
                 "type": 1,
                 "answer": "BCA"
             },
-            "3":{
+            "3": {
                 "type": 5,
                 "answer": [
                     "She changes up to three times.",
@@ -202,12 +209,12 @@
                     "He dresses with a youthful thought in mind"
                 ]
             },
-            "4":{
-                "type":1,
+            "4": {
+                "type": 1,
                 "answer": "BCAB"
             },
-            "5":{
-                "type":2,
+            "5": {
+                "type": 2,
                 "answer": [
                     "the leading designer",
                     "the clothes",
@@ -220,9 +227,9 @@
                 ]
             }
         },
-        "UT":{
-            "type":1,
-            "answer":"DAACBBCDDBCDAB"
+        "UT": {
+            "type": 1,
+            "answer": "DAACBBCDDBCDAB"
         }
     },
     "4": {
@@ -256,7 +263,7 @@
             "1": {
                 "type": 1,
                 "answer": "DBDC"
-            }, 
+            },
             "2": {
                 "type": 1,
                 "answer": "DBC"
@@ -338,7 +345,15 @@
             "3": {
                 "type": 0,
                 "answer": [
-                    "3","5","6","7","17","18","22","26","30"
+                    "3",
+                    "5",
+                    "6",
+                    "7",
+                    "17",
+                    "18",
+                    "22",
+                    "26",
+                    "30"
                 ]
             },
             "4": {
@@ -371,6 +386,297 @@
         "UT": {
             "type": 1,
             "answer": "CBACDDABCBCCBD"
+        }
+    },
+    "6": {
+        "OV": {
+            "1": {
+                "type": 3,
+                "answer": "56318742"
+            },
+            "2": {
+                "type": 2,
+                "answer": [
+                    "no more than 170 km",
+                    "more than 9 million",
+                    "Liverpool and Southampton",
+                    "5 or 6",
+                    "1912",
+                    "over 1500",
+                    "five or six",
+                    "more than 1.5 million"
+                ]
+            },
+            "3": {
+                "type": 1,
+                "answer": "ACBD"
+            },
+            "4": {
+                "type": 2,
+                "answer": [
+                    "the biggest navy in the world",
+                    "what it was like",
+                    "brought tea",
+                    "to put up the sails",
+                    "passenger ships",
+                    "in maritime history",
+                    "the world's biggest cruise ship",
+                    "five or six hours",
+                    "furniture and toys"
+                ]
+            }
+        },
+        "LS": {
+            "1": {
+                "type": 1,
+                "answer": "CDA"
+            },
+            "2": {
+                "type": 1,
+                "answer": "BDB"
+            },
+            "3": {
+                "type": 0,
+                "answer": "6"
+            },
+            "4": {
+                "type": 6,
+                "answer": [
+                    "1533",
+                    "1536",
+                    "1558",
+                    "1568",
+                    "1587",
+                    "1603"
+                ]
+            },
+            "5": {
+                "type": 1,
+                "answer": "BBCDDD"
+            },
+            "6": {
+                "type": 2,
+                "answer": [
+                    "Pompeii",
+                    "a guide to the town",
+                    "almost 2000 years ago",
+                    "August",
+                    "2 days",
+                    "2"
+                ]
+            },
+            "7": {
+                "type": 2,
+                "answer": [
+                    "turn around",
+                    "erupt",
+                    "praying",
+                    "1748",
+                    "2 owners",
+                    "money",
+                    "mirror"
+                ]
+            }
+        },
+        "UT": {
+            "type": 1,
+            "answer": "CDABCCACBCAABD"
+        }
+    },
+    "7": {
+        "OV": {
+            "1": {
+                "type": 0,
+                "answer": [
+                    "1",
+                    "2",
+                    "4",
+                    "7",
+                    "10",
+                    "11",
+                    "12",
+                    "14"
+                ]
+            },
+            "2": {
+                "type": 1,
+                "answer": "ABACAD"
+            },
+            "3": {
+                "type": 2,
+                "answer": [
+                    "the third largest",
+                    "1871",
+                    "curtains of glass",
+                    "15 years",
+                    "70 seconds",
+                    "840 flights",
+                    "29 miles",
+                    "a wonderful sports history"
+                ]
+            }
+        },
+        "LS": {
+            "1": {
+                "type": 1,
+                "answer": "BCD"
+            },
+            "2": {
+                "type": 1,
+                "answer": "DBAD"
+            },
+            "3": {
+                "type": 5,
+                "answer": [
+                    "the newest terminal of Beijing Capital Airport",
+                    "time it became operational",
+                    "a famous British architect",
+                    "extent of the terminal",
+                    "time it took to build the new terminal",
+                    "traditional Chinese colours used",
+                    "reason for the roof design",
+                    "number per hour the baggage system can handle"
+                ]
+            },
+            "4": {
+                "type": 0,
+                "answer": "2456"
+            },
+            "5": {
+                "type": 2,
+                "answer": [
+                    "the second largest",
+                    "glass and steel",
+                    "light and heat",
+                    "late December 2007",
+                    "French architect",
+                    "the amount of sunlight",
+                    "glass curtain",
+                    "the gardens and trees"
+                ]
+            },
+            "6": {
+                "type": 2,
+                "answer": [
+                    "greatest architect",
+                    "bones",
+                    "The Dancing House",
+                    "2",
+                    "33 years",
+                    "billowing sail",
+                    "1997",
+                    "stucco"
+                ]
+            }
+        },
+        "UT": {
+            "type": 1,
+            "answer": "ACCBACDCBBABBD"
+        }
+    },
+    "8": {
+        "OV": {
+            "1": {
+                "type": 2,
+                "answer": [
+                    "Exciting jobs,right",
+                    "under 30",
+                    "your diet and your nutrition",
+                    "making a lot of money",
+                    "passionate about windsurfing",
+                    "looking at the wind",
+                    "going to prepare",
+                    "that magical balance",
+                    "not to be afraid"
+                ]
+            },
+            "2": {
+                "type": 0,
+                "answer": [
+                    "1",
+                    "3",
+                    "5",
+                    "7",
+                    "8",
+                    "10",
+                    "12"
+                ]
+            },
+            "3": {
+                "type": 1,
+                "answer": "ABACC"
+            }
+        },
+        "LS": {
+            "1": {
+                "type": 1,
+                "answer": "BDC"
+            },
+            "2": {
+                "type": 1,
+                "answer": "BAC"
+            },
+            "3": {
+                "type": 2,
+                "answer": [
+                    "62",
+                    "an island",
+                    "to be taken back home",
+                    "in surprisingly good health",
+                    "he had no family",
+                    "successful businessman",
+                    "800"
+                ]
+            },
+            "4": {
+                "type": 2,
+                "answer": [
+                    "mast",
+                    "rudder",
+                    "floated",
+                    "repair",
+                    "Hawaii",
+                    "catching",
+                    "drinking",
+                    "old newspapers",
+                    "watched videos",
+                    "car accident",
+                    "scared"
+                ]
+            },
+            "5": {
+                "type": 1,
+                "answer": "BDAAB"
+            },
+            "6": {
+                "type": 2,
+                "answer": [
+    "makes a man",
+    "a lot more to it",
+    "need for recognition",
+    "fearless",
+    "born that way"
+]
+            }
+        },
+        "UT": {
+            "type": 1,
+            "answer": [
+                "C",
+                "B",
+                "B",
+                "B",
+                "D",
+                "A",
+                "B",
+                "C",
+                "B",
+                "C",
+                "D",
+                "B",
+                "C",
+                "A"
+            ]
         }
     }
 }
