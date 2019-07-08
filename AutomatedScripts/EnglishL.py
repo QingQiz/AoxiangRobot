@@ -8,7 +8,7 @@ from selenium.common.exceptions import *
 from subscript import book1, book2
 
 
-username = input('username:')
+username = input('username: ')
 password = getpass.getpass()
 
 
