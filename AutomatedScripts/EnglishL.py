@@ -12,7 +12,7 @@ username = input('username:')
 password = getpass.getpass()
 
 
-def login(d):
+def login_unipus(d):
     d.implicitly_wait(2)
     d.get('http://10.81.0.88/index.php')
     try:
@@ -27,13 +27,17 @@ def login(d):
     d.implicitly_wait(3)
 
 
+def for_unipus(d):
+    login_unipus(d)
+    book1.run(d)
+    login_unipus(d)
+    book2.run(d)
+
+
 if __name__ == '__main__':
     d = webdriver.Chrome()
     d.implicitly_wait(2)
-
-    login(d)
-    book1.run(d)
-    login(d)
-    book2.run(d)
+    for_unipus(d)
     d.close()
+
 

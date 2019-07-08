@@ -30,7 +30,7 @@ def submit(d):
     find(d, '//*[@class="submit"]').click()
     # alter switch yes
     if find(d, '//*[@class="submit"]').get_attribute('id') != 'answer':
-        find(d, '//*[@class"dialogDiv ui-draggable"]//*[@value=="Yes"]').click()
+        find(d, '//*[@value="Yes"]').click()
 
 
 def by_type_do(d, answer):
@@ -53,7 +53,7 @@ def by_type_do(d, answer):
     # fill in the blanks
     elif answer['type'] == 2:
         cnt = 0
-        for i in finds(d, '//*[@id="unipus"]/div/div[3]//*[@type="text"]'):
+        for i in finds(d, '//*[@id="unipus"]/div//*[@type="text"]'):
             i.send_keys(answer['answer'][cnt])
             cnt += 1
         submit(d)
@@ -84,10 +84,11 @@ def by_type_do(d, answer):
                 if len(re.findall('\(\d\)', item.text)) != 0:
                     find(d, path + '//input').send_keys(answer['answer'][cnt])
                     cnt += 1
+        submit(d)
     # text area
     elif answer['type'] == 5:
         cnt = 0
-        textarea = finds(d, '//*[@id="unipus"]/div/div[3]/div[1]//textarea')
+        textarea = finds(d, '//*[@id="unipus"]//textarea')
         for i in answer['answer']:
             textarea[cnt].send_keys(i)
             cnt += 1
@@ -98,6 +99,7 @@ def by_type_do(d, answer):
         for i in finds(d, '//*[@id="unipus"]/div/div[3]/div[2]//select'):
             Select(d).select_by_value(answer['answer'][cnt])
             cnt += 1
+        submit(d)
     # no answer or skip
 
 
@@ -115,7 +117,14 @@ def check_url(url):
 
 
 def run(d):
-    url = find(d, '//*[@id="c1_1"]//ul/li[3]//a').get_attribute('href')
+    url = None
+    for i in finds(d, '//*[@id="c1_1"]//ul/li[*]//a'):
+        if len(re.findall('新标准大学英语（第二版）视听说', i.text)) != 0:
+            url = i.get_attribute('href')
+            break
+    if url is None:
+        return
+
     d.get(url)
     bookID = get_bookID(url)
 

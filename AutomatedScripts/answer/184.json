@@ -188,7 +188,19 @@
                 "answer": "BCA"
             },
             "3":{
-                "type": 5
+                "type": 5,
+                "answer": [
+                    "She changes up to three times.",
+                    "He usually stays in work clothes.",
+                    "Because of what she'll do: do the school run, go to the gym, go out in the evening.",
+                    "It depends on what happens: maybe change shoes or change to go out somewhere.",
+                    "She's going for an interview so she wants to look smart.",
+                    "He wants to be fairly casual, relaxed, and comfortable.",
+                    "She's discreetly fashion-conscious: She carries high heels in her bag and then changes into them after getting off the bus.",
+                    "He's a little fashion-conscious; he wants to have his own bit of individuality.",
+                    "She wears different colours according to her mood.",
+                    "He dresses with a youthful thought in mind"
+                ]
             },
             "4":{
                 "type":1,
@@ -232,6 +244,7 @@
                 "answer": [
                     "not happy",
                     "make all of that better",
+                    "make more choices",
                     "thinks about money",
                     "of having the money",
                     "would get solved",
@@ -300,12 +313,64 @@
                 "answer": [
                     "economic and political sectors",
                     "division of",
-                    "teaching and nursing^make their own money",
+                    "teaching and nursing",
+                    "make their own money",
                     "in the number of",
                     "looked after",
-                    "far from perfect"
+                    "far from perfect",
+                    "it will be difficult",
+                    "who might be able to",
+                    "been responsible for",
+                    "less well paid than men",
+                    "are rewarded"
                 ]
             }
+        },
+        "LS": {
+            "1": {
+                "type": 1,
+                "answer": "ABB"
+            },
+            "2": {
+                "type": 1,
+                "answer": "CADC"
+            },
+            "3": {
+                "type": 0,
+                "answer": [
+                    "3","5","6","7","17","18","22","26","30"
+                ]
+            },
+            "4": {
+                "type": 5,
+                "answer": [
+                    "An ad in which a man is shown as being not good at a DIY job.",
+                    "That feminism has gone too far and that it means women treat men as inferior.",
+                    "There is no real equality of pay; men still have the top jobs; women continue to be shown as objects in ads.",
+                    "It is good that men aren’t always shown as super-masculine, because this is more realistic.",
+                    "A car insurance ad, which shows a smart woman as the smart boss and her partner as a dumb idiot."
+                ]
+            },
+            "5": {
+                "type": 3,
+                "answer": "462351"
+            },
+            "6": {
+                "type": 2,
+                "answer": [
+                    "the result of upbringing",
+                    "learn to speak earlier",
+                    "intelligence tests",
+                    "are better at language skills",
+                    "less interested in people",
+                    "have better social skills",
+                    "quite differently"
+                ]
+            }
+        },
+        "UT": {
+            "type": 1,
+            "answer": "CBACDDABCBCCBD"
         }
     }
 }

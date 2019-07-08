@@ -66,7 +66,14 @@ def by_type(d, answer):
 
 def run(d):
     # prepare
-    url = find(d, '//*[@id="c1_1"]//ul/li[1]//a').get_attribute('href')
+    url = None
+    for i in finds(d, '//*[@id="c1_1"]//ul/li[1]//a'):
+        if len(re.findall('新视野大学英语 听说教程\(第二版\)', i.text)) != 0:
+            url = i.get_attribute('href')
+            break
+    if url is None:
+        return
+
     d.get(url)
     bookID = get_bookID(url)
 
