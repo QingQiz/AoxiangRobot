@@ -10,8 +10,8 @@ from functions import AoxiangInfo
 
 urlGrade = 'http://us.nwpu.edu.cn/eams/teach/grade/course/person!search.action?semesterId=36'
 urlExam = 'http://us.nwpu.edu.cn/eams/stdExamTable!examTable.action?examBatch.id=382'
-debugValue = 30
-DEBUG = False
+debugValue = 30     #设置debug时成绩的修正值
+DEBUG = False       #设置挂科显示debug状态(万一你是dalao无科可挂呢)
 
 def format_string(string, num):
     string = string.strip()
