@@ -38,7 +38,9 @@ def setWarning(string, isFail):                     #红色显示挂科
         result = string + '\n'
     return result
 
-def get_grade():                                    #查成绩    TODO: 增加补考等情况的格式
+def get_grade():                                    #查成绩
+                                                    #TODO: 增加补考等情况的格式
+                                                    #TODO: 增加本学期平均分计算功能
     soup = BeautifulSoup(AoxiangInfo.get(urlGrade), features='html5lib')
     long_len, short_len = 20, 12                    #long_len由22改为20
     result = ''
