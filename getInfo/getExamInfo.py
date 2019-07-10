@@ -23,7 +23,6 @@ def format_string(string, num):
 
     if(res >= 0):                                   #判断字符串长度
         ret = string
-        #for i in range(res):
         ret += ' ' * res
     else:                                           #| 若超过设定长度
         ret = string[0:(num//2)-2]                  #| 则只取一部分
