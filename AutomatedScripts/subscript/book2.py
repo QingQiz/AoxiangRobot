@@ -46,7 +46,10 @@ def by_type_do(d, answer):
         cnt = 0
         all_opitions = finds(d, '//*[@type="radio"]')
         for i in answer['answer']:
-            offset = {'A': 1, 'B': 2, 'C': 3, 'D': 4}[i]
+            if i not in '0123456789':
+                offset = {'A': 1, 'B': 2, 'C': 3, 'D': 4}[i]
+            else:
+                offset = int(i)
             all_opitions[cnt * 4 + offset - 1].click()
             cnt += 1
         submit(d)
@@ -93,11 +96,11 @@ def by_type_do(d, answer):
             textarea[cnt].send_keys(i)
             cnt += 1
         submit(d)
-    # switch
+    # select menu
     elif answer['type'] == 6:
         cnt = 0
-        for i in finds(d, '//*[@id="unipus"]/div/div[3]/div[2]//select'):
-            Select(d).select_by_value(answer['answer'][cnt])
+        for i in finds(d, '//*[@id="unipus"]/div//select'):
+            Select(i).select_by_value(answer['answer'][cnt])
             cnt += 1
         submit(d)
     # no answer or skip
@@ -109,7 +112,6 @@ def by_type(d, answer):
     except ElementClickInterceptedException:
         sleep(1)
         by_type_do(d, answer)
-
 
 
 def check_url(url):
