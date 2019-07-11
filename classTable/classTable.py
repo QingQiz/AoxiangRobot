@@ -92,9 +92,22 @@ if __name__ == '__main__':
 
         start_time, end_time = get_time(c.get('time'))
 
-        c_week_start, c_week_end = int(c.get('week').get('start')), int(c.get('week').get('end'))
+        step = 1
+        c_week_start = int(c.get('week').get('start'))
+        c_week_end = c.get('week').get('end')
+        try:
+            c_week_end = int(c_week_end)
+        except ValueError:
+            step = 2
+            if c_week_end[-1] == '单':
+                c_week_start = c_week_start | 1
+            elif c_week_end[-1] == '双':
+                c_week_start += c_week_start & 1
+            else:
+                raise ValueError
+            c_week_end = int(c_week_end[:-1])
 
-        for j in range(c_week_start, c_week_end + 1):
+        for j in range(c_week_start, c_week_end + 1, step):
             date = term_start + datetime.timedelta(days=((j-1)*7+int(c.get('day'))-1))
             tstart, tend = format_date(date, start_time), format_date(date, end_time)
             body.append(format_template(c.get('name'), tstart, tend, c.get('room'), '20'))

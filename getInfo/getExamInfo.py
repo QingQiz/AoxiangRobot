@@ -9,7 +9,7 @@ sys.path.append('..')
 from bs4 import BeautifulSoup
 from functions import AoxiangInfo
 
-# FIXME 表格的ID似乎很低怪，只能先每学期都改改了
+# FIXME 表格的ID似乎很奇怪，只能先每学期都改改了
 urlGrade = 'http://us.nwpu.edu.cn/eams/teach/grade/course/person!search.action?semesterId=36'
 urlExam = 'http://us.nwpu.edu.cn/eams/stdExamTable!examTable.action?examBatch.id=382'
 debugValue = 30     #设置debug时成绩的修正值
@@ -33,21 +33,26 @@ def format_string(string, num, color=''):
 
 
 # 查成绩
-# TODO 增加补考等情况的格式
 # TODO 增加本学期平均分计算功能
+# FIXME 补考等情况的格式
+# FIXME 期中考试那一列只有有其中考试的人才有
 def get_grade():
     soup = BeautifulSoup(AoxiangInfo.get(urlGrade), features='html5lib')
     long_len, short_len = 22, 12
-    result = 107 * '=' + '\n'
+    head = 107 * '=' + '\n'
     line = format_string('', long_len)
     for th in soup.find_all('th')[5:]:
         line += format_string(th.string, short_len)
-    result += line + '\n' + 107 * '-' + '\n'
+    head += line + '\n' + 107 * '-' + '\n'
 
+    result = ''
     for tr in soup.find_all('tr')[1:]:
-        line = tr.find_all('a')[0].string
-        line = format_string(line, long_len)
+        try:
+            line = tr.find_all('a')[0].string
+        except IndexError:
+            break
 
+        line = format_string(line, long_len)
         total = cnt = 0
         for td in tr.find_all('td')[5:]:
             text = str(td.string).lower()
@@ -69,7 +74,9 @@ def get_grade():
                 line += format_string('-', short_len)
             cnt += 1
         result += line.replace('（', '(').replace('）', ')') + '\n'
-    return result + 107 * '=' + '\n'
+    if result == '':
+        return ''
+    return head + result + 107 * '=' + '\n'
 
 
 def get_exam():

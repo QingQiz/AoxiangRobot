@@ -20,7 +20,6 @@ info = AoxiangInfo.post('http://us.nwpu.edu.cn/eams/courseTableForStd!courseTabl
        'ids': ids
    }
 )
-
 dic = {
     "星期一": "1",
     "星期二": "2",
@@ -45,24 +44,27 @@ for i in range(trs):
     if data(3) == '在线开放课程':
         continue
     for c in dom.xpath(xpath + '/tr[{}]/td[{}]//text()'.format(i + 1, infoIndex[1])):
+        teacher = data(3)
+        c = c[c.find('星期'):].strip()
         name = data(0)
-        for week in data(2).split(','):
-            week = week.split('-')
-            infoList = c.split(' ')
-            time = infoList[2].split('-')
+
+        infoList = c.split(' ')
+        for j in infoList[2].split(','):
+            time = infoList[1].split('-')
+            week = j.replace('[', '').replace(']', '').split('-')
 
             res.append({
                 "name": name,
                 "week": {
                     "start": week[0],
-                    "end": week[1]
+                    "end": week[-1]
                 },
-                "day": dic[infoList[1]],
+                "day": dic[infoList[0]],
                 "time": {
                     "start": time[0],
                     "end": time[1],
                 },
-                "room": infoList[-1]
+                "room": infoList[3]
             })
 
 with open('settings/classInfo.json', 'w') as f:
