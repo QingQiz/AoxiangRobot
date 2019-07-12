@@ -3,6 +3,7 @@
 """
 从翱翔门户获取考试安排和考试成绩
 """
+import os
 import sys
 import datetime
 sys.path.append('..')
@@ -180,5 +181,6 @@ examRes = get_exam()
 examExist = 0 if examRes == '' else 1
 getTableLen()       #如果无排考信息输出,表格长度可能会变短
 
+os.system('')
 print(examRes)
 print(get_grade())
