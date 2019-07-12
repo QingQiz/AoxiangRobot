@@ -67,5 +67,5 @@ for i in range(trs):
                 "room": infoList[3]
             })
 
-with open('settings/classInfo.json', 'w') as f:
+with open('settings/classInfo.json', 'w', encoding='utf8') as f:
     json.dump(res, f, indent=4, ensure_ascii=False)
