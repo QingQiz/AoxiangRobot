@@ -14,11 +14,11 @@ from functions import AoxiangInfo
 urlGrade = 'http://us.nwpu.edu.cn/eams/teach/grade/course/person!search.action?semesterId=36' #第一学期17,第二学期35,上学期18, 本学期为36
 urlExam = 'http://us.nwpu.edu.cn/eams/stdExamTable!examTable.action?examBatch.id=382'
 long_len, short_len = 22, 14
-global examExist    #标记是否有排考信息输出
 examExist = 1
 
 debugValue = 30     #设置debug时成绩的修正值
 DEBUG = False       #设置挂科显示debug状态(万一你是dalao无科可挂呢)
+
 
 #计算字符串所占字符数
 def charlen(string):
@@ -27,6 +27,7 @@ def charlen(string):
     for char in string:
         length += 2 if jud(char) else 1
     return length
+
 
 def format_string(string, num, color=''):
     string = string.strip()
@@ -44,6 +45,7 @@ def format_string(string, num, color=''):
     ret += ' ' * res                                #加空格对齐
     return color + ret[0:len(string)] + '\033[0m' + ret[len(string):]
 
+
 # 获取表格长度
 def getTableLen():
     soupG = BeautifulSoup(AoxiangInfo.get(urlGrade), features='html5lib')
@@ -57,6 +59,7 @@ def getTableLen():
         tableLength = long_len + short_len * (colCntG - 1) + 4
     else:
         tableLength = long_len + short_len * colCntE
+
 
 # 查成绩
 # TODO 增加本学期平均分计算功能
@@ -166,9 +169,11 @@ def get_exam():
         if datetime.datetime.now() < et or DEBUG:
             result += line.replace('（', '(').replace('）', ')') + '\n'
     if result == '':
+        global examExist
         examExist = 0
         return ''
     return head + result
+
 
 getTableLen()
 examRes = get_exam()
