@@ -7,8 +7,8 @@ import time
 import datetime
 import random
 
-js = json.load(open('settings/classInfo.json'))
-time_table_js = json.load(open('settings/ClassTimeSetting.json'))
+js = json.load(open('settings/classInfo.json', encoding='utf8'))
+time_table_js = json.load(open('settings/ClassTimeSetting.json', encoding='utf8'))
 time_table = [{}]
 
 for i in time_table_js:
@@ -32,10 +32,10 @@ for i in time_table_js:
 
 
 
-head = open('material/HEAD').read().strip('\n')
+head = open('material/HEAD', encoding='utf8').read().strip('\n')
 body = []
-body_template = open('material/BODY').read().strip('\n')
-tail = open('material/TAIL').read().strip('\n')
+body_template = open('material/BODY', encoding='utf8').read().strip('\n')
+tail = open('material/TAIL', encoding='utf8').read().strip('\n')
 
 
 def uid():
@@ -112,7 +112,7 @@ if __name__ == '__main__':
             tstart, tend = format_date(date, start_time), format_date(date, end_time)
             body.append(format_template(c.get('name'), tstart, tend, c.get('room'), '20'))
 
-    with open('res.ics', 'w') as f:
+    with open('res.ics', 'w', encoding='utf8') as f:
         f.write(head)
         f.write('\n')
         for i in body:
