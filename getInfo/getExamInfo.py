@@ -10,15 +10,16 @@ sys.path.append('..')
 from bs4 import BeautifulSoup
 from functions import AoxiangInfo
 
-# FIXME Windows貌似显示彩色字符串会出错...
 # FIXME 表格的ID似乎很奇怪，只能先每学期都改改了
-urlGrade = 'http://us.nwpu.edu.cn/eams/teach/grade/course/person!search.action?semesterId=36' #第一学期17,第二学期35,上学期18, 本学期为36
+#第一学期17,第二学期35,上学期18, 本学期为36
+urlGrade = 'http://us.nwpu.edu.cn/eams/teach/grade/course/person!search.action?semesterId=36'
 urlExam = 'http://us.nwpu.edu.cn/eams/stdExamTable!examTable.action?examBatch.id=382'
 long_len, short_len = 22, 14
 examExist = 1
-
-debugValue = 30     #设置debug时成绩的修正值
-DEBUG = False       #设置挂科显示debug状态(万一你是dalao无科可挂呢)
+#设置debug时成绩的修正值
+debugValue = 30
+#设置挂科显示debug状态(万一你是dalao无科可挂呢)
+DEBUG = False
 
 
 #计算字符串所占字符数
@@ -34,16 +35,18 @@ def format_string(string, num, color=''):
     string = string.strip()
     res = num - charlen(string)
 
-    if(res >= 0):                                   #判断字符串长度
+    if(res >= 0):
         ret = string
-    else:                                           #| 若超过设定长度
-        ret = string[0:(num//2)-3]                  #| 则只取一部分(zh)
-        ret += '...'                                #| 末尾加'...'
+    else:
+        # 若超过设定长度, 则只取一部分(zh) 末尾加'...'
+        ret = string[0:(num//2)-3]
+        ret += '...'
         res = num - charlen(ret)
     if color != '':
-        res += 4                                    #带颜色的字符格式化时貌似会多计算4个字符,补偿空格
-        
-    ret += ' ' * res                                #加空格对齐
+        # 带颜色的字符格式化时貌似会多计算4个字符,补偿空格
+        res += 4
+
+    ret += ' ' * res
     return color + ret[0:len(string)] + '\033[0m' + ret[len(string):]
 
 
@@ -55,7 +58,9 @@ def getTableLen():
     for th in soupG.find_all('th')[5:]:
         colCntG += 1
 
-    global tableLength                              #用于计算表格长度,动态调整分割线
+    # 用于计算表格长度,动态调整分割线
+    global tableLength
+
     if colCntG > colCntE and examExist or examExist == 0:
         tableLength = long_len + short_len * (colCntG - 1) + 4
     else:
@@ -66,10 +71,12 @@ def getTableLen():
 # TODO 增加本学期平均分计算功能
 def get_grade():
     soup = BeautifulSoup(AoxiangInfo.get(urlGrade), features='html5lib')
-    
-    totalCol = makeUpCol = finalCol = -1            #| 最终,总评成绩,补考成绩的列号
-    creditCol = GPCol = -1                          #| 学分,绩点的列号
-                                                    #| 若无此项则列号为-1
+
+    # 最终,总评成绩,补考成绩的列号
+    totalCol = makeUpCol = finalCol = -1
+    # 学分,绩点的列号
+    creditCol = GPCol = -1
+
     head = tableLength * '=' + '\n'
     line = format_string('', long_len)
     col = 0
@@ -80,7 +87,8 @@ def get_grade():
             totalCol = col
         elif th.string == "补考成绩":
             makeUpCol = col
-        elif th.string == "最终":     #注意翱翔成绩单此项名为"最终",不是"最终成绩"...
+        # NOTE 翱翔成绩单此项名为"最终",不是"最终成绩"...
+        elif th.string == "最终":
             finalCol = col
         elif th.string == "学分":
             creditCol = col
@@ -103,11 +111,13 @@ def get_grade():
             text = str(td.string).lower()
             if text != 'none':
                 try:
-                    scoreVal = float(td.string)                     #成绩数值
+                    # 成绩数值
+                    scoreVal = float(td.string)
                 except ValueError:
-                    scoreVal = -1                                   #缓考,缺考等表格内容为文字的情况
+                    # 缓考,缺考等表格内容为文字的情况
+                    scoreVal = -1
 
-                if DEBUG and scoreVal != -1:                        #用于测试挂科样例
+                if DEBUG and scoreVal != -1:
                     scoreVal -= debugValue
                     if cnt not in [creditCol, GPCol]:
                         td.string = '{:.1f}'.format(float(td.string) - debugValue)
@@ -115,19 +125,22 @@ def get_grade():
                         td.string = '{:.1f}'.format(float(td.string) - 2)
 
                 score = format_string(td.string, short_len)
-                if td.string.strip() == "P":                        #注意翱翔成绩单上显示P的成绩两边带空格...艹
-                    scoreVal = 100                                  #显示P的成绩认为是满分
+                # 注意翱翔成绩单上显示P的成绩两边带空格...艹
+                if td.string.strip() == "P":
+                    # 显示P的成绩认为是满分
+                    scoreVal = 100
                 elif scoreVal == -1:
-                    score = score.replace('-','')                   #删去翱翔上面啰哩啰嗦的废话
+                    score = score.replace('-','')
                     score = score.replace(' ','')
                     score = score.replace('（','')
                     score = score.replace('）','')
                     score = score.replace('(','')
                     score = score.replace(')','')
                     score = score.replace("申请","")
-                    
+
                 if cnt in [totalCol, makeUpCol, finalCol] and scoreVal < 60 or scoreVal == -1:
-                    score = format_string(score, short_len, '\033[1;37;41m')    #异常情况显示为红色高亮
+                    #异常情况显示为红色高亮
+                    score = format_string(score, short_len, '\033[1;37;41m')
                 line += score
             else:
                 line += format_string('-', short_len)
@@ -140,7 +153,7 @@ def get_grade():
 
 def get_exam():
     soup = BeautifulSoup(AoxiangInfo.get(urlExam), features='html5lib')
-    
+
     head = '\n' + tableLength * '=' + '\n'
     result = line = ''
     th = soup.find_all('th')
@@ -148,7 +161,7 @@ def get_exam():
     for idx in index:
         line += format_string(th[idx].string if idx != 1 else '',
                               short_len if idx != 1 else long_len)
-        
+
     head += line + '\n' + tableLength * '-' + '\n'
 
     for tr in soup.find_all('tr')[1:]:
@@ -179,7 +192,8 @@ def get_exam():
 getTableLen()
 examRes = get_exam()
 examExist = 0 if examRes == '' else 1
-getTableLen()       #如果无排考信息输出,表格长度可能会变短
+# 如果无排考信息输出,表格长度可能会变短
+getTableLen()
 
 os.system('')
 print(examRes)
