@@ -17,7 +17,7 @@ urlExam = 'http://us.nwpu.edu.cn/eams/stdExamTable!examTable.action?examBatch.id
 long_len, short_len = 22, 14
 examExist = 1
 #设置挂科显示debug状态(万一你是dalao无科可挂呢)
-DEBUG = False
+DEBUG = 0
 #设置debug时成绩的修正值
 debugValue = 30
 
@@ -30,8 +30,7 @@ help_msg = """
 def charlen(string):
     jud = lambda x: u'\u4e00' <= x <= u'\u9fa6'
     length = 0
-    for char in string:
-        length += 2 if jud(char) else 1
+    for char in string: length += 2 if jud(char) else 1
     return length
 
 
@@ -95,10 +94,8 @@ def get_grade():
 
     lines = []
     for tr in soup.find_all('tr')[1:]:
-        try:
-            line = tr.find_all('a')[0].string
-        except IndexError:
-            break
+        try: line = tr.find_all('a')[0].string
+        except IndexError: break
 
         line = format_string(line, long_len)
         scoreVal, cnt = 0, -1
@@ -109,14 +106,10 @@ def get_grade():
                 line += format_string('-', short_len)
                 continue
 
-            try:
-                # 成绩数值
-                scoreVal = float(td.string)
-            except ValueError:
-                # 缓考,缺考等表格内容为文字的情况
-                scoreVal = -1
+            try: scoreVal = float(td.string)
+            except ValueError: scoreVal = -1
 
-            if DEBUG and scoreVal != -1:
+            if bool(DEBUG) and scoreVal != -1:
                 scoreVal -= debugValue
                 if cnt not in [creditCol, GPCol]:
                     td.string = '{:.1f}'.format(float(td.string) - debugValue)
@@ -144,11 +137,9 @@ def get_grade():
             line += format_string(score, short_len, color)
         lines.append(line.replace('（', '(').replace('）', ')').replace('：',':'))
 
-    result = ''
-    for line in reversed(sorted(lines)):
-        result += line + '\n'
+    result = '\n'.join(sorted(lines)[::-1]) + '\n'
 
-    return '' if result == '' else head + result + tableLength * '=' + '\n'
+    return '' if result.strip() == '' else head + result + tableLength * '='
 
 
 # TODO 期中考试的安排...
@@ -157,12 +148,12 @@ def get_exam():
     soup = BeautifulSoup(AoxiangInfo.get(urlExam), features='html5lib')
 
     head = '\n' + tableLength * '=' + '\n'
-    result = line = ''
+    line = ''
     th = soup.find_all('th')
     index = [1, 2, 3, 4, 5, 7, 8, 9]
     for idx in index:
-        line += format_string(th[idx].string if idx != 1 else '',
-                              short_len if idx != 1 else long_len)
+        if idx == 1: line += format_string('', long_len)
+        else: line += format_string(th[idx].string, short_len)
 
     head += line + '\n' + tableLength * '-' + '\n'
 
@@ -176,19 +167,18 @@ def get_exam():
             if text != 'none':
                 line += format_string(td[idx].string if idx != 7 else td[idx].find_all('a')[0].string,
                                   short_len if idx != 1 else long_len)
-            else:
-                line += format_string('-', short_len)
+            else: line += format_string('-', short_len)
 
         et = td[3].string.replace('-', '')
         et += td[4].string.split('~')[-1].replace(':', '')
         et = datetime.datetime(int(et[0:4]), int(et[4:6]), int(et[6:8]),\
                                int(et[8:10]), int(et[10:12]))
-        if datetime.datetime.now() < et or DEBUG:
-            lines.append(line.replace('（', '(').replace('）', ')') + '\n')
-    for line in reversed(sorted(lines)):
-        result += line
+        if datetime.datetime.now() < et or bool(DEBUG):
+            lines.append(line.replace('（', '(').replace('）', ')'))
 
-    return '' if result == '' else head + result
+    result = '\n'.join(sorted(lines)[::-1]) + '\n'
+
+    return '' if result.strip() == '' else head + result
 
 
 if __name__ == '__main__':
@@ -199,6 +189,6 @@ if __name__ == '__main__':
 
     os.system('')
     print(examRes)
-    print(get_grade(), end='')
+    print(get_grade())
     print(help_msg)
 
