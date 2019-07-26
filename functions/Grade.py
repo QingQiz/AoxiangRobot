@@ -11,6 +11,19 @@ urlGrade = """
 http://us.nwpu.edu.cn/eams/teach/grade/course/person!search.action?semesterId=
 """
 
+header = {
+    "name": "",
+    "credit": "学分",
+    "usual": "平时成绩",
+    "midTerm": "期中成绩",
+    "experimental": "实验成绩",
+    "endTerm": "期末成绩",
+    "makeUp": "补考成绩",
+    "total": "总评成绩",
+    "final": "最终",
+    "GP": "绩点",
+}
+
 
 def get(Id=36):
     url = urlGrade.strip() + str(Id)
@@ -51,10 +64,10 @@ def get(Id=36):
         "midTerm": midTermCol,
         "experimental": experimentalCol,
         "endTerm": endTermCol,
+        "makeUp": makeUpCol,
         "total": totalCol,
         "final": finalCol,
         "GP": GPCol,
-        "makeUp": makeUpCol,
     }
 
     result = []

@@ -11,6 +11,17 @@ urlExam = """
 http://us.nwpu.edu.cn/eams/stdExamTable!examTable.action?examBatch.id=
 """
 
+header = {
+    "name": "",
+    "type": "考试类型",
+    "date": "考试日期",
+    "time": "考试时间",
+    "campus": "考场校区",
+    "room": "考场教室",
+    "status": "考试情况",
+    "description": "其它说明"
+}
+
 
 def get(Id=382):
     url = urlExam.strip() + str(Id)
