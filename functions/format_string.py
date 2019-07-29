@@ -20,3 +20,19 @@ def format(string, num, color=''):
     string += '\033[m' + ' ' * blk_n
     string = string.replace('实验', '\033[32m实验\033[m')
     return color + string
+
+
+def remove_chars(s, *args):
+    if s is None:
+        return s
+    for char in args:
+        s = s.replace(char, '')
+    return s
+
+
+def replace_chars(s, **kwargs):
+    if s is None:
+        return s
+    for key, value in kwargs.items():
+        s = s.replace(key, value)
+    return s

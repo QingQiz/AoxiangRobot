@@ -61,7 +61,7 @@ def table_info():
     return max(len_exam, len_grade)
 
 
-def format_json(json, index, header={}):
+def format_json(json, index, **header):
     lines = []
     for dic in json:
         def dyeing(idx):
@@ -76,14 +76,7 @@ def format_json(json, index, header={}):
                     value = float(value)
                     return fs.format(dic[idx], short_len, '' if value >= 60 and not DEBUG else '\033[31m')
                 except ValueError:
-                    value = value.replace('-', '')
-                    value = value.replace(' ', '')
-                    value = value.replace('（', '')
-                    value = value.replace('）', '')
-                    value = value.replace('(', '')
-                    value = value.replace(')', '')
-                    value = value.replace("申请", "")
-                    return fs.format(value, short_len)
+                    return fs.format(value, short_len, '' if value != "NP" and not DEBUG else '\033[31m')
             return fs.format(dic[idx], short_len)
 
         lines.append(''.join([dyeing(key) for key in index]))
@@ -102,8 +95,8 @@ if __name__ == '__main__':
     grade, exam, grade_index, exam_index = [], [], [], []
     table_len = table_info()
 
-    exam_formatted = format_json(exam, exam_index, Exam.header)
-    grade_formatted = format_json(grade, grade_index, Grade.header)
+    exam_formatted = format_json(exam, exam_index, **Exam.header)
+    grade_formatted = format_json(grade, grade_index, **Grade.header)
 
     if bool(exam_formatted):
         print(table_len * '=')

@@ -5,7 +5,7 @@ import sys
 
 sys.path.append('..')
 from bs4 import BeautifulSoup
-from functions import AoxiangInfo
+from functions import AoxiangInfo, format_string
 
 urlGrade = """
 http://us.nwpu.edu.cn/eams/teach/grade/course/person!search.action?semesterId=
@@ -78,6 +78,10 @@ def get(Id=36):
             if idx == nameCol:
                 return tr.find_all('a')[0].string.strip()
             res = None if idx == -1 else tds[idx].string
+            if idx != 'name':
+                res = format_string.remove_chars(res, "申请", '(', ')', '（', '）', '--', ' ')
+            else:
+                res = format_string.replace_chars(res, **{'（': '(', '）': ')'})
             return res if res is None else res.strip()
 
         result.append({key: content(dic[key]) for key in dic})
