@@ -11,15 +11,18 @@ def width(string):
     return length
 
 
-def format(string, num, color=''):
+def format(string, num, color='', should_color=True):
     string = string.replace('（', '(').replace('）', ')')
     string = string.strip()
 
     blk_n = num - width(string)
 
-    string += '\033[m' + ' ' * blk_n
-    string = string.replace('实验', '\033[32m实验\033[m')
-    return color + string
+    if should_color:
+        string += '\033[m' + ' ' * blk_n
+        string = string.replace('实验', '\033[32m实验\033[m')
+        return color + string
+    else:
+        return string + ' ' * blk_n
 
 
 def remove_chars(s, *args):

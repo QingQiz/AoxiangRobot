@@ -106,7 +106,7 @@ def format_json(json, index, **header):
         else:
             result = result1 + '\n' + table_len * '-' + '\n' + result2
 
-    head = ''.join([fs.format(header[i], long_len if i == 'name' else short_len) for i in index])
+    head = ''.join([fs.format(header[i], long_len if i == 'name' else short_len, '', False) for i in index])
     return head + '\n' + table_len * '-' + '\n' + result
 
 
