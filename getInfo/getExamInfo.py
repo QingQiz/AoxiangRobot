@@ -8,6 +8,7 @@ FIXME 表格的ID似乎很奇怪，只能先每学期都改改了
 """
 import datetime
 import sys
+import os
 
 sys.path.append('..')
 from functions import Grade, Exam
@@ -91,6 +92,7 @@ def format_json(json, index, **header):
 
 
 if __name__ == '__main__':
+    os.system('')
     # 第一学期17, 第二学期35, 上学期18, 本学期为36
     grade, exam, grade_index, exam_index = [], [], [], []
     table_len = table_info()
