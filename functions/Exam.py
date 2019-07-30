@@ -23,30 +23,35 @@ header = {
 }
 
 
-def get(Id=382):
-    url = urlExam.strip() + str(Id)
-    soup = BeautifulSoup(AoxiangInfo.get(url), features='html5lib')
+def get(*args):
+    res = []
+    for Id in args:
+        url = urlExam.strip() + str(Id)
+        soup = BeautifulSoup(AoxiangInfo.get(url), features='html5lib')
 
-    dic = {
-        "name": 1,
-        "type": 2,
-        "date": 3,
-        "time": 4,
-        "campus": 5,
-        "room": 7,
-        "status": 8,
-        "description": 9
-    }
+        dic = {
+            "name": 1,
+            "type": 2,
+            "date": 3,
+            "time": 4,
+            "campus": 5,
+            "room": 7,
+            "status": 8,
+            "description": 9
+        }
 
-    result = []
-    for tr in soup.find_all('tr')[1:]:
-        tds = tr.find_all('td')
+        result = []
+        for tr in soup.find_all('tr')[1:]:
+            tds = tr.find_all('td')
 
-        def content(idx):
-            res = tds[idx].find_all('a')[0].string if idx == 7 else tds[idx].string
-            return None if res is None else res.strip()
+            def content(idx):
+                res = tds[idx].find_all('a')[0].string if idx == 7 else tds[idx].string
+                return None if res is None else res.strip()
 
-        result.append({key: content(dic[key]) for key in dic})
-
-    return result
+            try:
+                result.append({key: content(dic[key]) for key in dic})
+            except IndexError:
+                break
+        res.append(result)
+    return res
 
