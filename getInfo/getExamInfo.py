@@ -35,7 +35,9 @@ def table_info():
     exam = Exam.get(*exam_id[Term])
     try:
         dic = {key: 0 for key in grade[0][0]}
-        for i in grade[0] + grade[1]:
+        temp_list = []
+        for part in grade: temp_list += part
+        for i in temp_list:
             for key in i:
                 dic[key] += 1 if i[key] is not None else 0
                 if key != 'name':
@@ -47,18 +49,21 @@ def table_info():
     try:
         for key in exam[0][0]:
             exam_index.append(key)
-        exam_ = [[], []]
-        for term in [0, 1]:
-            for i in exam[term]:
+        exam_ = []
+        for part in exam:
+            temp_list = []
+            for i in part:
                 et = i['date'].split('-')
                 et.extend(i['time'].split('~')[-1].split(':'))
-
                 et = datetime.datetime(*map(int, et))
                 if datetime.datetime.now() < et:
-                    exam_[term].append(i)
+                    temp_list.append(i)
+            exam_.append(temp_list)
         exam = exam_ if not DEBUG else exam
 
-        for i in exam[0] + exam[1]:
+        temp_list = []
+        for part in exam: temp_list += part
+        for i in temp_list:
             for key in i:
                 if key != 'name':
                     short_len = max(short_len, fs.width(i[key]))
@@ -95,19 +100,19 @@ def format_json(json, index, **header):
             lines.append(''.join([dyeing(key) for key in index]))
         res.append(lines)
 
-    result1 = '\n'.join(sorted(res[0])[::-1])
-    result2 = '\n'.join(sorted(res[1])[::-1])
+    res_pre, res_now, res_ret = '', '', ''
+    for lines in res:
+        res_now = '\n'.join([line for line in sorted(lines[::-1])])
+        if res_pre != '':
+            res_ret += '\n' + table_len * '-'
+        res_ret += '\n' + res_now
+        res_pre = res_now
 
-    if result1 == '':
+    if res_ret.strip() == '':
         return ''
-    else:
-        if result2 == '':
-            result = result1
-        else:
-            result = result1 + '\n' + table_len * '-' + '\n' + result2
 
     head = ''.join([fs.format(header[i], long_len if i == 'name' else short_len, '', False) for i in index])
-    return head + '\n' + table_len * '-' + '\n' + result
+    return head + '\n' + table_len * '-' + res_ret
 
 
 if __name__ == '__main__':

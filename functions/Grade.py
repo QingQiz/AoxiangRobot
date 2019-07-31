@@ -93,7 +93,9 @@ def get(*args):
         res.append(result)
 
     score = credit = 0
-    for obj in res[0] + res[1]:
+    temp_list = []
+    for i in res: temp_list += i
+    for obj in temp_list:
         try:
             score += float(obj['final']) * float(obj['credit'])
             credit += float(obj['credit'])
