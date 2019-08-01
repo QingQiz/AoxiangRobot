@@ -25,11 +25,11 @@ header = {
 }
 
 
-def get(*args):
+def get(*args, username=None, password=None):
     res = []
     for Id in args:
         url = urlGrade.strip() + str(Id)
-        soup = BeautifulSoup(AoxiangInfo.get(url), features='html5lib')
+        soup = BeautifulSoup(AoxiangInfo.get(url, username=username, password=password), features='html5lib')
 
         # 学分       平时         期中         实验              期末
         creditCol = usualCol = midTermCol = experimentalCol = endTermCol = -1

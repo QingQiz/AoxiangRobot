@@ -3,30 +3,43 @@
 
 import requests
 import sys
+import os
 sys.path.append('..')
 from functions import getUserName_Password
 
+urlLogin = 'http://us.nwpu.edu.cn/eams/login.action'
 
-def login(headers={}):
-    userName, password = getUserName_Password.get(is_input=False)
+
+def login(username, password, headers):
+    if username is None or password is None:
+        username, password = getUserName_Password.get(is_input=False)
 
     dataLogin = {
-        'username': userName,
+        'username': username,
         'password': password,
         'session_locale': 'zh_CN',
     }
-    urlLogin = 'http://us.nwpu.edu.cn/eams/login.action'
 
     conn = requests.session()
     conn.post(url=urlLogin, data=dataLogin, headers=headers)
     return conn
 
 
-def get(url, headers={}, cookies={}):
-    conn = login()
+def get(url, headers={}, cookies={}, username=None, password=None):
+    conn = check(username, password, headers)
     return conn.get(url, headers=headers, cookies=cookies).text
 
 
-def post(url, headers={}, cookies={}, data={}):
-    conn = login()
+def post(url, headers={}, cookies={}, data={}, username=None, password=None):
+    conn = check(username, password, headers)
     return conn.post(url, headers=headers, cookies=cookies, data=data).text
+
+
+def check(username, password, header={}):
+    conn = login(username, password, header)
+    url = conn.get('http://us.nwpu.edu.cn/eams/home!index.action').url
+    if url.find('login') >= 0:
+        os.remove('.info')
+        raise ValueError('Invalid username or password')
+    return conn
+
