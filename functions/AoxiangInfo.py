@@ -3,7 +3,7 @@
 
 import requests
 import os
-import getUserName_Password
+from . import getUserName_Password
 
 urlLogin = 'http://us.nwpu.edu.cn/eams/login.action'
 

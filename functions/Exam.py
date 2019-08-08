@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from bs4 import BeautifulSoup
-import AoxiangInfo
+from . import AoxiangInfo
 
 urlExam = """
 http://us.nwpu.edu.cn/eams/stdExamTable!examTable.action?examBatch.id=

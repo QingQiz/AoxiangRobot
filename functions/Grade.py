@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from bs4 import BeautifulSoup
-import AoxiangInfo, format_string
+from . import AoxiangInfo, format_string
 
 urlGrade = """
 http://us.nwpu.edu.cn/eams/teach/grade/course/person!search.action?semesterId=
