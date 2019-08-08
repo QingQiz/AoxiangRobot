@@ -109,7 +109,8 @@ def translate(*args, fromLan='en', toLan='zh-CN'):
 
 
 if __name__ == '__main__':
-    print(translate('apple'))
-    print(translate('translate'))
     print(translate(''))
     print(translate('fly'))
+    print(translate('a'))
+    print(translate('take up'))
+    print(translate('let\'s go'))

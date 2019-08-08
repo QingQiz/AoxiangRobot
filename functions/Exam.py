@@ -1,11 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import sys
-
-sys.path.append('..')
 from bs4 import BeautifulSoup
-from functions import AoxiangInfo
+import AoxiangInfo
 
 urlExam = """
 http://us.nwpu.edu.cn/eams/stdExamTable!examTable.action?examBatch.id=

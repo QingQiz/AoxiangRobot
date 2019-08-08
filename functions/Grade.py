@@ -1,11 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import sys
-
-sys.path.append('..')
 from bs4 import BeautifulSoup
-from functions import AoxiangInfo, format_string
+import AoxiangInfo, format_string
 
 urlGrade = """
 http://us.nwpu.edu.cn/eams/teach/grade/course/person!search.action?semesterId=

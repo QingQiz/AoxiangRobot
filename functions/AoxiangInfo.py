@@ -2,10 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import requests
-import sys
 import os
-sys.path.append('..')
-from functions import getUserName_Password
+import getUserName_Password
 
 urlLogin = 'http://us.nwpu.edu.cn/eams/login.action'
 
