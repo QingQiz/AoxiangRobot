@@ -27,11 +27,11 @@ ID = {
 }
 
 
-def get(*args):
+def get(*args, username=None, password=None):
     res = []
     for Id in args:
         url = urlExam.strip() + str(Id)
-        soup = BeautifulSoup(AoxiangInfo.get(url), features='html5lib')
+        soup = BeautifulSoup(AoxiangInfo.get(url, username=username, password=password), features='html5lib')
 
         dic = {
             "name": 1,
