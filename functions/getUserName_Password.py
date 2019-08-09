@@ -1,4 +1,7 @@
 import getpass
+import os
+
+cache_file_name = '.info'
 
 
 def get(is_input=True):
@@ -18,3 +21,11 @@ def prepare():
     with open('.info', 'w') as f:
         f.write(userName + '\n' + password)
         return userName, password
+
+
+def remove_cache():
+    try:
+        os.remove(cache_file_name)
+    except FileNotFoundError:
+        pass
+

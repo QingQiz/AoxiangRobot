@@ -14,6 +14,7 @@ import os
 sys.path.append('..')
 from functions import Grade, Exam
 from functions import format_string as fs
+from functions.getUserName_Password import remove_cache
 
 
 long_len, short_len = 0, 8
@@ -29,9 +30,14 @@ exam_id = {
 
 
 def table_info():
-    global exam, grade, grade_index, long_len, short_len, cs
-    grade, cs = Grade.get(Term, Term + 18)
-    exam = Exam.get(*exam_id[Term])
+    global exam, grade, grade_index, long_len, short_len
+    try:
+        grade = Grade.get(Term, Term + 18)
+        exam = Exam.get(*exam_id[Term])
+    except ValueError:
+        remove_cache()
+        print('\n\033[41mInvalid username or password\033[m')
+        exit(-1)
     try:
         dic = {key: 0 for key in grade[0][0]}
         temp_list = []
@@ -118,7 +124,6 @@ if __name__ == '__main__':
     os.system('')
     # 20xx 年秋学期ID为xx，春学期ID为xx+18
     grade, exam, grade_index, exam_index = [], [], [], []
-    cs = 0
     table_len = table_info()
 
     exam_formatted = format_json(exam, exam_index, **Exam.header)
@@ -134,4 +139,17 @@ if __name__ == '__main__':
             print(table_len * '=')
         print(grade_formatted)
         print(table_len * '=')
-        print("\033[32m学分绩\033[m: %.2f" % cs)
+
+        score = credit = 0
+        temp_list = []
+        for i in grade: temp_list += i
+        for obj in temp_list:
+            try:
+                score += float(obj['final']) * float(obj['credit'])
+                credit += float(obj['credit'])
+            except ValueError:
+                pass
+        cs = score / credit if credit != 0 else None
+        if cs is not None:
+            print("\033[32m学分绩\033[m: %.2f" % cs)
+

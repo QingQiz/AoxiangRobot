@@ -37,7 +37,6 @@ def check(username, password, header={}):
     conn = login(username, password, header)
     url = conn.get('http://us.nwpu.edu.cn/eams/home!index.action').url
     if url.find('login') >= 0:
-        os.remove('.info')
         raise ValueError('Invalid username or password')
     return conn
 

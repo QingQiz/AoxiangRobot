@@ -88,14 +88,4 @@ def get(*args, username=None, password=None):
             except IndexError:
                 break
         res.append(result)
-
-    score = credit = 0
-    temp_list = []
-    for i in res: temp_list += i
-    for obj in temp_list:
-        try:
-            score += float(obj['final']) * float(obj['credit'])
-            credit += float(obj['credit'])
-        except ValueError:
-            pass
-    return res, score / credit if credit != 0 else None
+    return res
