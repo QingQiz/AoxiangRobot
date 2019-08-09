@@ -19,6 +19,13 @@ header = {
     "description": "其它说明"
 }
 
+ID = {
+    17: [302, 321],
+    18: [362, 382],
+    19: [443, None],
+    20: [None, None]
+}
+
 
 def get(*args):
     res = []

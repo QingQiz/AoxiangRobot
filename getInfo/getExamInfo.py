@@ -21,19 +21,11 @@ long_len, short_len = 0, 8
 DEBUG = 0
 Term = 18
 
-exam_id = {
-    17: [302, 321],
-    18: [362, 382],
-    19: [443, None],
-    20: [None, None]
-}
-
-
 def table_info():
     global exam, grade, grade_index, long_len, short_len
     try:
         grade = Grade.get(Term, Term + 18)
-        exam = Exam.get(*exam_id[Term])
+        exam = Exam.get(*Exam.ID[Term])
     except ValueError:
         remove_cache()
         print('\n\033[41mInvalid username or password\033[m')
