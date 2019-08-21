@@ -3,184 +3,145 @@
 """
 从翱翔门户获取考试安排和考试成绩
 """
-import os
-import sys
+# TODO 期中考试的安排...
+# FIXME 考试安排的ID似乎很奇怪，只能先每学期都改改了
+# FIXME 以现在的成绩表格ID的变化规律来看迟早要出bug
+
 import datetime
+import sys
+import os
+
 sys.path.append('..')
-from bs4 import BeautifulSoup
-from functions import AoxiangInfo
-
-# FIXME Windows貌似显示彩色字符串会出错...
-# FIXME 表格的ID似乎很奇怪，只能先每学期都改改了
-urlGrade = 'http://us.nwpu.edu.cn/eams/teach/grade/course/person!search.action?semesterId=36' #第一学期17,第二学期35,上学期18, 本学期为36
-urlExam = 'http://us.nwpu.edu.cn/eams/stdExamTable!examTable.action?examBatch.id=382'
-long_len, short_len = 22, 14
-examExist = 1
-
-debugValue = 30     #设置debug时成绩的修正值
-DEBUG = False       #设置挂科显示debug状态(万一你是dalao无科可挂呢)
+from functions import Grade, Exam
+from functions import format_string as fs
+from functions.getUserName_Password import remove_cache
 
 
-#计算字符串所占字符数
-def charlen(string):
-    jud = lambda x: u'\u4e00' <= x <= u'\u9fa6'
-    length = 0
-    for char in string:
-        length += 2 if jud(char) else 1
-    return length
+long_len, short_len = 0, 8
+DEBUG = 0
+Term = 18
+
+def table_info():
+    global exam, grade, grade_index, long_len, short_len
+    try:
+        grade = Grade.get(Term, Term + 18)
+        exam = Exam.get(*Exam.ID[Term])
+    except ValueError:
+        remove_cache()
+        print('\n\033[41mInvalid username or password\033[m')
+        exit(-1)
+    try:
+        dic = {key: 0 for key in grade[0][0]}
+        temp_list = []
+        for part in grade: temp_list += part
+        for i in temp_list:
+            for key in i:
+                dic[key] += 1 if i[key] is not None else 0
+                if key != 'name':
+                    short_len = max(short_len, fs.width(i[key]))
+            long_len = max(long_len, fs.width(i['name']))
+        grade_index = [key for key in dic if dic[key] != 0]
+    except IndexError:
+        pass
+    try:
+        for key in exam[0][0]:
+            exam_index.append(key)
+        exam_ = []
+        for part in exam:
+            temp_list = []
+            for i in part:
+                et = i['date'].split('-')
+                et.extend(i['time'].split('~')[-1].split(':'))
+                et = datetime.datetime(*map(int, et))
+                if datetime.datetime.now() < et:
+                    temp_list.append(i)
+            exam_.append(temp_list)
+        exam = exam_ if not DEBUG else exam
+
+        temp_list = []
+        for part in exam: temp_list += part
+        for i in temp_list:
+            for key in i:
+                if key != 'name':
+                    short_len = max(short_len, fs.width(i[key]))
+            long_len = max(long_len, fs.width(i['name']))
+    except IndexError:
+        pass
+    long_len += 2
+    short_len += 2
+    len_grade = long_len + (len(grade_index) - 1) * short_len
+    len_exam = long_len + (len(exam_index) - 1) * short_len
+    return max(len_exam, len_grade)
 
 
-def format_string(string, num, color=''):
-    string = string.strip()
-    res = num - charlen(string)
+def format_json(json, index, **header):
+    res = []
+    for l in json:
+        def dyeing(idx):
+            if dic[idx] is None:
+                return fs.format('-', short_len)
+            if idx == 'name':
+                return fs.format(dic[idx], long_len)
 
-    if(res >= 0):                                   #判断字符串长度
-        ret = string
-    else:                                           #| 若超过设定长度
-        ret = string[0:(num//2)-3]                  #| 则只取一部分(zh)
-        ret += '...'                                #| 末尾加'...'
-        res = num - charlen(ret)
-    if color != '':
-        res += 4                                    #带颜色的字符格式化时貌似会多计算4个字符,补偿空格
-        
-    ret += ' ' * res                                #加空格对齐
-    return color + ret[0:len(string)] + '\033[0m' + ret[len(string):]
-
-
-# 获取表格长度
-def getTableLen():
-    soupG = BeautifulSoup(AoxiangInfo.get(urlGrade), features='html5lib')
-    colCntG = 0
-    colCntE = 7
-    for th in soupG.find_all('th')[5:]:
-        colCntG += 1
-
-    global tableLength                              #用于计算表格长度,动态调整分割线
-    if colCntG > colCntE and examExist or examExist == 0:
-        tableLength = long_len + short_len * (colCntG - 1) + 4
-    else:
-        tableLength = long_len + short_len * colCntE
-
-
-# 查成绩
-# TODO 增加本学期平均分计算功能
-def get_grade():
-    soup = BeautifulSoup(AoxiangInfo.get(urlGrade), features='html5lib')
-    
-    totalCol = makeUpCol = finalCol = -1            #| 最终,总评成绩,补考成绩的列号
-    creditCol = GPCol = -1                          #| 学分,绩点的列号
-                                                    #| 若无此项则列号为-1
-    head = tableLength * '=' + '\n'
-    line = format_string('', long_len)
-    col = 0
-    for th in soup.find_all('th')[5:]:
-        line += format_string(th.string, short_len)
-
-        if   th.string == "总评成绩":
-            totalCol = col
-        elif th.string == "补考成绩":
-            makeUpCol = col
-        elif th.string == "最终":     #注意翱翔成绩单此项名为"最终",不是"最终成绩"...
-            finalCol = col
-        elif th.string == "学分":
-            creditCol = col
-        elif th.string == "绩点":
-            GPCol = col
-
-        col += 1
-    head += line + '\n' + tableLength * '-' + '\n'
-
-    result = ''
-    for tr in soup.find_all('tr')[1:]:
-        try:
-            line = tr.find_all('a')[0].string
-        except IndexError:
-            break
-
-        line = format_string(line, long_len)
-        scoreVal = cnt = 0
-        for td in tr.find_all('td')[5:]:
-            text = str(td.string).lower()
-            if text != 'none':
+            if idx in ['final', 'total', 'makeUp']:
+                value = dic[idx]
                 try:
-                    scoreVal = float(td.string)                     #成绩数值
+                    value = float(value)
+                    return fs.format(dic[idx], short_len, '' if value >= 60 and not DEBUG else '\033[31m')
                 except ValueError:
-                    scoreVal = -1                                   #缓考,缺考等表格内容为文字的情况
+                    return fs.format(value, short_len, '' if value != "NP" and not DEBUG else '\033[31m')
+            return fs.format(dic[idx], short_len)
 
-                if DEBUG and scoreVal != -1:                        #用于测试挂科样例
-                    scoreVal -= debugValue
-                    if cnt not in [creditCol, GPCol]:
-                        td.string = '{:.1f}'.format(float(td.string) - debugValue)
-                    elif cnt == GPCol:
-                        td.string = '{:.1f}'.format(float(td.string) - 2)
+        lines = []
+        for dic in l:
+            lines.append(''.join([dyeing(key) for key in index]))
+        res.append(lines)
 
-                score = format_string(td.string, short_len)
-                if td.string.strip() == "P":                        #注意翱翔成绩单上显示P的成绩两边带空格...艹
-                    scoreVal = 100                                  #显示P的成绩认为是满分
-                elif scoreVal == -1:
-                    score = score.replace('-','')                   #删去翱翔上面啰哩啰嗦的废话
-                    score = score.replace(' ','')
-                    score = score.replace('（','')
-                    score = score.replace('）','')
-                    score = score.replace('(','')
-                    score = score.replace(')','')
-                    score = score.replace("申请","")
-                    
-                if cnt in [totalCol, makeUpCol, finalCol] and scoreVal < 60 or scoreVal == -1:
-                    score = format_string(score, short_len, '\033[1;37;41m')    #异常情况显示为红色高亮
-                line += score
-            else:
-                line += format_string('-', short_len)
-            cnt += 1
-        result += line.replace('（', '(').replace('）', ')').replace('：',':') + '\n'
-    if result == '':
+    res_pre, res_now, res_ret = '', '', ''
+    for lines in res:
+        res_now = '\n'.join([line for line in sorted(lines[::-1])])
+        if res_pre != '':
+            res_ret += '\n' + table_len * '-'
+        res_ret += '\n' + res_now
+        res_pre = res_now
+
+    if res_ret.strip() == '':
         return ''
-    return head + result + tableLength * '=' + '\n'
+
+    head = ''.join([fs.format(header[i], long_len if i == 'name' else short_len, '', False) for i in index])
+    return head + '\n' + table_len * '-' + res_ret
 
 
-def get_exam():
-    soup = BeautifulSoup(AoxiangInfo.get(urlExam), features='html5lib')
-    
-    head = '\n' + tableLength * '=' + '\n'
-    result = line = ''
-    th = soup.find_all('th')
-    index = [1, 2, 3, 4, 5, 7, 8, 9]
-    for idx in index:
-        line += format_string(th[idx].string if idx != 1 else '',
-                              short_len if idx != 1 else long_len)
-        
-    head += line + '\n' + tableLength * '-' + '\n'
+if __name__ == '__main__':
+    os.system('')
+    # 20xx 年秋学期ID为xx，春学期ID为xx+18
+    grade, exam, grade_index, exam_index = [], [], [], []
+    table_len = table_info()
 
-    for tr in soup.find_all('tr')[1:]:
-        line = ''
-        td = tr.find_all('td')
+    exam_formatted = format_json(exam, exam_index, **Exam.header)
+    grade_formatted = format_json(grade, grade_index, **Grade.header)
 
-        for idx in index:
-            text = str(td[idx].string).lower()
-            if text != 'none':
-                line += format_string(td[idx].string if idx != 7 else td[idx].find_all('a')[0].string,
-                                  short_len if idx != 1 else long_len)
-            else:
-                line += format_string('-', short_len)
+    if bool(exam_formatted):
+        print(table_len * '=')
+        print(exam_formatted)
+        print('\n' + table_len * '=')
 
-        et = td[3].string.replace('-', '')
-        et += td[4].string.split('~')[-1].replace(':', '')
-        et = datetime.datetime(int(et[0:4]), int(et[4:6]), int(et[6:8]),\
-                               int(et[8:10]), int(et[10:12]))
-        if datetime.datetime.now() < et or DEBUG:
-            result += line.replace('（', '(').replace('）', ')') + '\n'
-    if result == '':
-        global examExist
-        examExist = 0
-        return ''
-    return head + result
+    if bool(grade_formatted):
+        if not bool(exam_formatted):
+            print(table_len * '=')
+        print(grade_formatted)
+        print(table_len * '=')
 
+        score = credit = 0
+        temp_list = []
+        for i in grade: temp_list += i
+        for obj in temp_list:
+            try:
+                score += float(obj['final']) * float(obj['credit'])
+                credit += float(obj['credit'])
+            except ValueError:
+                pass
+        cs = score / credit if credit != 0 else None
+        if cs is not None:
+            print("\033[32m学分绩\033[m: %.2f" % cs)
 
-getTableLen()
-examRes = get_exam()
-examExist = 0 if examRes == '' else 1
-getTableLen()       #如果无排考信息输出,表格长度可能会变短
-
-os.system('')
-print(examRes)
-print(get_grade())

@@ -32,7 +32,7 @@ for i in time_table_js:
 
 
 
-head = open('material/HEAD', encoding='utf8').read().strip('\n')
+head = open('material/HEAD', encoding='utf8').read().strip('\n').format(datetime.datetime.now().timestamp())
 body = []
 body_template = open('material/BODY', encoding='utf8').read().strip('\n')
 tail = open('material/TAIL', encoding='utf8').read().strip('\n')
