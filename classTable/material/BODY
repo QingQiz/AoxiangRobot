@@ -8,12 +8,13 @@ SUMMARY:{name}
 DTSTART;TZID=Asia/Shanghai:{tstart}
 DTSTAMP:{created}Z
 LOCATION:{room}
+DESCRIPTION:{mdes}
 SEQUENCE:0
 BEGIN:VALARM
 X-WR-ALARMUID:{uid2}@github.com/QingQiz
 UID:{uid3}@github.com/QingQiz
 TRIGGER:-PT{alarm}M
-DESCRIPTION:事件提醒
+DESCRIPTION:{ades}
 ACTION:DISPLAY
 END:VALARM
 END:VEVENT

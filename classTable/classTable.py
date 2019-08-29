@@ -47,10 +47,11 @@ def uid():
     return res
 
 
-def format_template(name, tstart, tend, room, alarm):
+def format_template(name, tstart, tend, room, alarm, mdes='', ades=''):
+    mdes = '' if mdes is None else mdes
     timeNow = time.strftime("%Y%m%dT%H%M%SZ", time.localtime())
     body_elem = body_template.format(created=timeNow, uid1=uid(), uid2=uid(), uid3=uid(), tend=tend, tstart=tstart,
-                                     room=room, alarm=alarm, name=name)
+                                     room=room, alarm=alarm, name=name, mdes='老湿: ' + mdes, ades=ades)
     return body_elem
 
 
@@ -110,7 +111,7 @@ if __name__ == '__main__':
         for j in range(c_week_start, c_week_end + 1, step):
             date = term_start + datetime.timedelta(days=((j-1)*7+int(c.get('day'))-1))
             tstart, tend = format_date(date, start_time), format_date(date, end_time)
-            body.append(format_template(c.get('name'), tstart, tend, c.get('room'), '20'))
+            body.append(format_template(c.get('name'), tstart, tend, c.get('room'), '20', c.get('teacher')))
 
     with open('res.ics', 'w', encoding='utf8') as f:
         f.write(head)
