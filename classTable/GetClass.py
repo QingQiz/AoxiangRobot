@@ -49,6 +49,7 @@ for i in range(trs):
         name = data(0)
 
         infoList = c.split(' ')
+        print(infoList)
         for j in infoList[2].split(','):
             time = infoList[1].split('-')
             week = j.replace('[', '').replace(']', '').split('-')
@@ -64,8 +65,12 @@ for i in range(trs):
                     "start": time[0],
                     "end": time[1],
                 },
+<<<<<<< Updated upstream
                 "room": infoList[3],
                 "teacher": teacher,
+=======
+                "room": infoList[-1]
+>>>>>>> Stashed changes
             })
 
 with open('settings/classInfo.json', 'w', encoding='utf8') as f:
