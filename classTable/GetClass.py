@@ -64,7 +64,8 @@ for i in range(trs):
                     "start": time[0],
                     "end": time[1],
                 },
-                "room": infoList[3]
+                "room": infoList[3],
+                "teacher": teacher,
             })
 
 with open('settings/classInfo.json', 'w', encoding='utf8') as f:
