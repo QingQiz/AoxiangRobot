@@ -2,11 +2,9 @@
 # -*- coding: utf-8 -*-
 
 import re
-import sys
 import json
 import datetime
 from lxml import etree
-sys.path.append('..')
 from functions import AoxiangInfo
 
 
