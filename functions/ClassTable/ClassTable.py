@@ -1,14 +1,21 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import json
 import time
+import string
 import datetime
 import random
-import GetClass
+
+from . import GetSettings
 
 
 def get_data(js, term_start):
+    """
+    :param js: class info (json)
+    :param term_start: first monday (20190826)
+    :return:
+    """
+
     def get_start_time(term_start=''):
         if term_start == '':
             term_start = '20190826'
@@ -21,14 +28,12 @@ def get_data(js, term_start):
                 raise ValueError
         except (ValueError, IndexError):
             print('invalid input')
-            exit(-1)
+            return
         return res
-
 
     def format_date(date, time):
         f = lambda x: format(str(x), '0>2')
         return f(date.year) + f(date.month) + f(date.day) + 'T' + time + '00'
-
 
     term_start = get_start_time(term_start)
     for c in js:
@@ -50,11 +55,11 @@ def get_data(js, term_start):
             c_week_end = int(c_week_end[:-1])
 
         for j in range(c_week_start, c_week_end + 1, step):
-            date = term_start + datetime.timedelta(days=((j-1)*7+int(c.get('day'))-1))
+            date = term_start + datetime.timedelta(days=((j - 1) * 7 + int(c.get('day')) - 1))
             tstart, tend = format_date(date, start_time), format_date(date, end_time)
             data = {
                 "name": c.get('name'),
-                'tstart':  tstart,
+                'tstart': tstart,
                 'tend': tend,
                 'room': c.get('room'),
                 'alarm': '20',
@@ -64,8 +69,12 @@ def get_data(js, term_start):
             yield data
 
 
-def get_json(term_start):
-    js = GetClass.get()
+def get_json(js, term_start):
+    """
+    :param js: class info (json)
+    :param term_start: first monday (20190826)
+    :return:
+    """
     res = []
     for data in get_data(js, term_start):
         res.append({
@@ -77,12 +86,17 @@ def get_json(term_start):
     return res
 
 
-def get_calendar(term_start):
+def get_calendar(js, term_start):
+    """
+    :param js: class info (json)
+    :param term_start: first monday (20190826)
+    :return:
+    """
+
     def uid():
-        choice = 'qazwsxedcrfvtgbyhnujmikolp'
+        choice = string.ascii_lowercase
         choice += choice.upper()
         return ''.join([random.choice(choice) for i in range(20)])
-
 
     def format_template(name, tstart, tend, room, alarm, mdes='', ades=''):
         timeNow = time.strftime("%Y%m%dT%H%M%SZ", time.localtime())
@@ -90,26 +104,11 @@ def get_calendar(term_start):
                                          room=room, alarm=alarm, name=name, mdes=mdes, ades=ades)
         return body_elem
 
-
-    js = json.load(open('settings/classInfo.json', encoding='utf8'))
-    head = open('material/HEAD', encoding='utf8').read().strip('\n').format(datetime.datetime.now().timestamp())
+    head, body_template, tail = GetSettings.get_default_calendar_settings()
     body = []
-    body_template = open('material/BODY', encoding='utf8').read().strip('\n')
-    tail = open('material/TAIL', encoding='utf8').read().strip('\n')
 
     for data in get_data(js, term_start):
         body.append(format_template(**data))
 
-    return head + '\n{}\n'.format('\n'.join(body)) + tail
-
-
-if __name__ == '__main__':
-    try:
-        term_start = input('The date of Monday of the first week of school(20190826):________\b\b\b\b\b\b\b\b')
-    except KeyboardInterrupt:
-        print('\ninterrupted. exiting...')
-        exit(0)
-
-    with open('res.ics', 'w', encoding='utf8') as f:
-        f.write(get_calendar(term_start))
-
+    return head.format(''.join([random.choice(string.ascii_uppercase) for i in range(10)])) + '\n{}\n'.format(
+        '\n'.join(body)) + tail

@@ -1,71 +1,71 @@
 [
-    {
-        "name": "1",
-        "during": "45",
-        "time": {
-            "start": "0830"
-        }
-    },
-    {
-        "name": "2",
-        "during": "45",
-        "offset": "10"
-    },
-    {
-        "name": "3",
-        "during": "45",
-        "offset": "20"
-    },
-    {
-        "name": "4",
-        "during": "45",
-        "offset": "10"
-    },
-    {
-        "name": "5",
-        "during": "45",
-        "offset": "10"
-    },
-    {
-        "name": "6",
-        "during": "45",
-        "offset": "0"
-    },
-    {
-        "name": "7",
-        "during": "45",
-        "offset": "10"
-    },
-    {
-        "name": "8",
-        "during": "45",
-        "offset": "10"
-    },
-    {
-        "name": "9",
-        "during": "45",
-        "offset": "20"
-    },
-    {
-        "name": "10",
-        "during": "45",
-        "offset": "10"
-    },
-    {
-        "name": "11",
-        "during": "45",
-        "time": {
-            "start": "1900"
-        }
-    },
-    {
-        "name": "12",
-        "during": "45",
-        "offset": "10"
-    },
-    {
-        "name": "13",
-        "during": "45",
-        "offset": "0"
+  {
+    "name": "1",
+    "during": "45",
+    "time": {
+      "start": "0830"
     }
+  },
+  {
+    "name": "2",
+    "during": "45",
+    "offset": "10"
+  },
+  {
+    "name": "3",
+    "during": "45",
+    "offset": "20"
+  },
+  {
+    "name": "4",
+    "during": "45",
+    "offset": "10"
+  },
+  {
+    "name": "5",
+    "during": "45",
+    "offset": "10"
+  },
+  {
+    "name": "6",
+    "during": "45",
+    "offset": "0"
+  },
+  {
+    "name": "7",
+    "during": "45",
+    "offset": "10"
+  },
+  {
+    "name": "8",
+    "during": "45",
+    "offset": "10"
+  },
+  {
+    "name": "9",
+    "during": "45",
+    "offset": "20"
+  },
+  {
+    "name": "10",
+    "during": "45",
+    "offset": "10"
+  },
+  {
+    "name": "11",
+    "during": "45",
+    "time": {
+      "start": "1900"
+    }
+  },
+  {
+    "name": "12",
+    "during": "45",
+    "offset": "10"
+  },
+  {
+    "name": "13",
+    "during": "45",
+    "offset": "0"
+  }
 ]
