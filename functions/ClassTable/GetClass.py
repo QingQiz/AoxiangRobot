@@ -38,19 +38,18 @@ def get_time_table(class_time=None):
     return res
 
 
-def get(class_time=None):
-    ids = AoxiangInfo.get('http://us.nwpu.edu.cn/eams/courseTableForStd.action')
+def get(class_time=None, username=None, password=None):
+    ids = AoxiangInfo.get('http://us.nwpu.edu.cn/eams/courseTableForStd.action', username=username, password=password)
     ids = re.search('"ids","[0-9]+"', ids).group(0).split('"')[3]
 
     info = AoxiangInfo.post('http://us.nwpu.edu.cn/eams/courseTableForStd!courseTable.action', data={
-           'ignoreHead': 1,
-           'startWeek': 1,
-           'semester.id': 19,
-           'setting.kind': 'std',
-           'project.id': 1,
-           'ids': ids
-       }
-    )
+       'ignoreHead': 1,
+       'startWeek': 1,
+       'semester.id': 19,
+       'setting.kind': 'std',
+       'project.id': 1,
+       'ids': ids
+    }, username=username, password=password)
     dic = {
         "星期一": "1",
         "星期二": "2",

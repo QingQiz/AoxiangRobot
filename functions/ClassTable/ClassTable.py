@@ -94,9 +94,7 @@ def get_calendar(js, term_start):
     """
 
     def uid():
-        choice = string.ascii_lowercase
-        choice += choice.upper()
-        return ''.join([random.choice(choice) for i in range(20)])
+        return ''.join([random.choice(string.ascii_letters) for i in range(20)])
 
     def format_template(name, tstart, tend, room, alarm, mdes='', ades=''):
         timeNow = time.strftime("%Y%m%dT%H%M%SZ", time.localtime())
@@ -112,3 +110,4 @@ def get_calendar(js, term_start):
 
     return head.format(''.join([random.choice(string.ascii_uppercase) for i in range(10)])) + '\n{}\n'.format(
         '\n'.join(body)) + tail
+
