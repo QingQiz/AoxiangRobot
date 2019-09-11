@@ -8,11 +8,12 @@ from .. import AoxiangInfo
 from . import GetSettings
 
 
-def get_time_table(class_time=None):
-    if class_time is None:
-        time_table_js = GetSettings.get_default_time_settings()
-    else:
-        time_table_js = class_time
+def get_time_table(class_time_method=0):
+    """
+    :param class_time_method:
+    :return: class time table
+    """
+    time_table_js = GetSettings.get_default_time_settings(class_time_method)
     time_table = [{}]
     for i in time_table_js:
         try:
@@ -38,7 +39,7 @@ def get_time_table(class_time=None):
     return res
 
 
-def get(class_time=None, username=None, password=None):
+def get(class_time_method=0, username=None, password=None):
     ids = AoxiangInfo.get('http://us.nwpu.edu.cn/eams/courseTableForStd.action', username=username, password=password)
     ids = re.search('"ids","[0-9]+"', ids).group(0).split('"')[3]
 
@@ -60,7 +61,7 @@ def get(class_time=None, username=None, password=None):
         "星期日": "7",
     }
 
-    time_table = get_time_table(class_time)
+    time_table = get_time_table(class_time_method)
 
     xpath = '/html/body/div/table/tbody'
     dom = etree.HTML(info, etree.HTMLParser())

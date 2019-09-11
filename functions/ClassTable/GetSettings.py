@@ -2,8 +2,14 @@
 # -*- coding: utf-8 -*-
 
 
-def get_default_time_settings():
-    return [
+def get_default_time_settings(method=0):
+    """
+    :param method: 0 for new campus and 1 for Old campus
+    :return: class time setting base
+    """
+    if method not in (0, 1):
+        raise ValueError('method must in (0, 1)')
+    ts_new = [
         {
             "name": "1",
             "during": "45",
@@ -74,6 +80,166 @@ def get_default_time_settings():
             "offset": "0"
         }
     ]
+    # index 0 for winter and 1 for summer
+    ts_old = [
+        [
+            {
+                "name": "1",
+                "during": "50",
+                "time": {
+                    "start": "0800"
+                }
+            },
+            {
+                "name": "2",
+                "during": "50",
+                "offset": "10"
+            },
+            {
+                "name": "3",
+                "during": "50",
+                "offset": "20"
+            },
+            {
+                "name": "4",
+                "during": "50",
+                "offset": "10"
+            },
+            {
+                "name": "5",
+                "during": "0",
+                "offset": "0"
+            },
+            {
+                "name": "6",
+                "during": "0",
+                "offset": "0"
+            },
+            {
+                "name": "7",
+                "during": "50",
+                "time": {
+                    "start": "1400"
+                }
+            },
+            {
+                "name": "8",
+                "during": "50",
+                "offset": "10"
+            },
+            {
+                "name": "9",
+                "during": "50",
+                "offset": "20"
+            },
+            {
+                "name": "10",
+                "during": "50",
+                "offset": "10"
+            },
+            {
+                "name": "11",
+                "during": "50",
+                "time": {
+                    "start": "1900"
+                }
+            },
+            {
+                "name": "12",
+                "during": "50",
+                "offset": "10"
+            },
+            {
+                "name": "13",
+                "during": "0",
+                "offset": "0"
+            }
+        ],
+        [
+            {
+                "name": "1",
+                "during": "50",
+                "time": {
+                    "start": "0800"
+                }
+            },
+            {
+                "name": "2",
+                "during": "50",
+                "offset": "10"
+            },
+            {
+                "name": "3",
+                "during": "50",
+                "offset": "20"
+            },
+            {
+                "name": "4",
+                "during": "50",
+                "offset": "10"
+            },
+            {
+                "name": "5",
+                "during": "0",
+                "offset": "0"
+            },
+            {
+                "name": "6",
+                "during": "0",
+                "offset": "0"
+            },
+            {
+                "name": "7",
+                "during": "50",
+                "time": {
+                    "start": "1430"
+                }
+            },
+            {
+                "name": "8",
+                "during": "50",
+                "offset": "10"
+            },
+            {
+                "name": "9",
+                "during": "50",
+                "offset": "20"
+            },
+            {
+                "name": "10",
+                "during": "50",
+                "offset": "10"
+            },
+            {
+                "name": "11",
+                "during": "50",
+                "time": {
+                    "start": "1930"
+                }
+            },
+            {
+                "name": "12",
+                "during": "50",
+                "offset": "10"
+            },
+            {
+                "name": "13",
+                "during": "0",
+                "offset": "0"
+            }
+        ]
+    ]
+    if method == 1:
+        import datetime
+        now = datetime.datetime.now()
+        ss = datetime.datetime(now.year, 5, 1)
+        se = datetime.datetime(now.year, 9, 30)
+        if ss <= now <= se:
+            return ts_old[1]
+        return ts_old[0]
+    if method == 0:
+        return ts_new
+
 
 
 def get_default_calendar_settings():
