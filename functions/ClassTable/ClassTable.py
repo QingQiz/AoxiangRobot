@@ -40,7 +40,7 @@ def get_data(js, term_start, method=None):
             return f(date.year) + f(date.month) + f(date.day) + 'T' + time + '00'
         else:
             dt = datetime.datetime(date.year, date.month, date.day, int(time[:2]), int(time[2:]))
-            if datetime.datetime(dt.year, 5, 1) <= dt <= datetime.datetime(dt.year, 10, 1):
+            if datetime.datetime(dt.year, 5, 1) <= dt < datetime.datetime(dt.year, 10, 1):
                 if dt >= datetime.datetime(dt.year, dt.month, dt.day, 14):
                     dt = dt + datetime.timedelta(minutes=30)
                 return f(dt.year) + f(dt.month) + f(dt.day) + 'T' + f(dt.hour) + f(dt.minute) + '00'
