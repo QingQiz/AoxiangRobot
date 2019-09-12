@@ -10,7 +10,7 @@ from . import GetSettings
 
 def get_time_table(class_time_method=0):
     """
-    :param class_time_method:
+    :param class_time_method: 0 for ChangAn Campus and 1 for Youyi Campus
     :return: class time table
     """
     time_table_js = GetSettings.get_default_time_settings(class_time_method)

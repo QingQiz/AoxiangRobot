@@ -8,7 +8,7 @@ from functions.ClassTable import GetClass
 
 
 try:
-    method = input('new campus[*0] or old campus[1]? _\b')
+    method = input('ChangAn Campus[*0] or Youyi Campus[1]? _\b')
 except KeyboardInterrupt:
     print('\nInterrupted')
     exit(0)
