@@ -1,28 +1,240 @@
 [
     {
-        "name": "网络与信息安全",
+        "name": "数据库原理",
         "week": {
             "start": "1",
-            "end": "8"
+            "end": "10"
         },
         "day": "2",
         "time": {
-            "start": "11",
-            "end": "12"
+            "start": "3",
+            "end": "4"
         },
-        "room": "教西C201"
+        "room": "",
+        "teacher": "李宁"
     },
     {
-        "name": "网络与信息安全",
+        "name": "数据库原理",
         "week": {
             "start": "1",
-            "end": "8"
+            "end": "10"
         },
         "day": "4",
         "time": {
-            "start": "11",
+            "start": "3",
+            "end": "4"
+        },
+        "room": "",
+        "teacher": "李宁"
+    },
+    {
+        "name": "计算机网络原理",
+        "week": {
+            "start": "1",
             "end": "12"
         },
-        "room": "教西C201"
+        "day": "1",
+        "time": {
+            "start": "3",
+            "end": "4"
+        },
+        "room": "",
+        "teacher": "李慧贤"
+    },
+    {
+        "name": "计算机网络原理",
+        "week": {
+            "start": "1",
+            "end": "12"
+        },
+        "day": "3",
+        "time": {
+            "start": "3",
+            "end": "4"
+        },
+        "room": "",
+        "teacher": "李慧贤"
+    },
+    {
+        "name": "智能系统",
+        "week": {
+            "start": "8",
+            "end": "17"
+        },
+        "day": "2",
+        "time": {
+            "start": "9",
+            "end": "10"
+        },
+        "room": "",
+        "teacher": "李孝安"
+    },
+    {
+        "name": "智能系统",
+        "week": {
+            "start": "8",
+            "end": "17"
+        },
+        "day": "4",
+        "time": {
+            "start": "9",
+            "end": "10"
+        },
+        "room": "",
+        "teacher": "李孝安"
+    },
+    {
+        "name": "计算机操作系统（双语）",
+        "week": {
+            "start": "1",
+            "end": "14"
+        },
+        "day": "1",
+        "time": {
+            "start": "1",
+            "end": "2"
+        },
+        "room": "",
+        "teacher": "谷建华"
+    },
+    {
+        "name": "计算机操作系统（双语）",
+        "week": {
+            "start": "1",
+            "end": "14"
+        },
+        "day": "3",
+        "time": {
+            "start": "1",
+            "end": "2"
+        },
+        "room": "",
+        "teacher": "谷建华"
+    },
+    {
+        "name": "计算机网络原理实验",
+        "week": {
+            "start": "11",
+            "end": "14"
+        },
+        "day": "5",
+        "time": {
+            "start": "1",
+            "end": "4"
+        },
+        "room": "",
+        "teacher": "李慧贤"
+    },
+    {
+        "name": "数据库原理实验",
+        "week": {
+            "start": "9",
+            "end": "11单"
+        },
+        "day": "7",
+        "time": {
+            "start": "1",
+            "end": "4"
+        },
+        "room": "",
+        "teacher": "李宁 汤小春"
+    },
+    {
+        "name": "数据库原理实验",
+        "week": {
+            "start": "5",
+            "end": "7单"
+        },
+        "day": "7",
+        "time": {
+            "start": "1",
+            "end": "4"
+        },
+        "room": "",
+        "teacher": "李宁 汤小春"
+    },
+    {
+        "name": "计算机操作系统实验（双语）",
+        "week": {
+            "start": "11",
+            "end": "14"
+        },
+        "day": "6",
+        "time": {
+            "start": "1",
+            "end": "4"
+        },
+        "room": "",
+        "teacher": "潘炜"
+    },
+    {
+        "name": "计算机操作系统实验（双语）",
+        "week": {
+            "start": "11",
+            "end": "14"
+        },
+        "day": "6",
+        "time": {
+            "start": "7",
+            "end": "10"
+        },
+        "room": "",
+        "teacher": "潘炜"
+    },
+    {
+        "name": "马克思主义基本原理概论",
+        "week": {
+            "start": "1",
+            "end": "11"
+        },
+        "day": "2",
+        "time": {
+            "start": "7",
+            "end": "8"
+        },
+        "room": "",
+        "teacher": "郝保权"
+    },
+    {
+        "name": "马克思主义基本原理概论",
+        "week": {
+            "start": "1",
+            "end": "10"
+        },
+        "day": "4",
+        "time": {
+            "start": "7",
+            "end": "8"
+        },
+        "room": "",
+        "teacher": "郝保权"
+    },
+    {
+        "name": "英汉互译",
+        "week": {
+            "start": "1",
+            "end": "16"
+        },
+        "day": "1",
+        "time": {
+            "start": "7",
+            "end": "8"
+        },
+        "room": "",
+        "teacher": "雷晓峰"
+    },
+    {
+        "name": "体育2（羽毛球）",
+        "week": {
+            "start": "4",
+            "end": "19"
+        },
+        "day": "5",
+        "time": {
+            "start": "7",
+            "end": "8"
+        },
+        "room": "",
+        "teacher": "甄志强"
     }
 ]
