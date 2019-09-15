@@ -1,72 +1,26 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import re
 import sys
-import json
-from lxml import etree
 sys.path.append('..')
-from functions import AoxiangInfo
+import json
+from functions.ClassTable import GetClass
 
-ids = AoxiangInfo.get('http://us.nwpu.edu.cn/eams/courseTableForStd.action')
-ids = re.search('"ids","[0-9]+"', ids).group(0).split('"')[3]
 
-info = AoxiangInfo.post('http://us.nwpu.edu.cn/eams/courseTableForStd!courseTable.action', data={
-       'ignoreHead': 1,
-       'startWeek': 1,
-       'semester.id': 19,
-       'setting.kind': 'std',
-       'project.id': 1,
-       'ids': ids
-   }
-)
-dic = {
-    "星期一": "1",
-    "星期二": "2",
-    "星期三": "3",
-    "星期四": "4",
-    "星期五": "5",
-    "星期六": "6",
-    "星期日": "7",
-}
+try:
+    method = input('ChangAn Campus[*0] or Youyi Campus[1]? _\b')
+except KeyboardInterrupt:
+    print('\nInterrupted')
+    exit(0)
 
-xpath = '/html/body/div/table/tbody'
-dom = etree.HTML(info, etree.HTMLParser())
-trs = len(dom.xpath(xpath + '/tr'))
-#       课程名称 安排 起止周 教师
-infoIndex = [4, 8, 9, 5]
+if method not in ('', '0', '1'):
+    print('input [0/1] please.')
+    exit(-1)
 
-res = []
-for i in range(trs):
-    data = lambda y: \
-        dom.xpath(xpath + '/tr[{}]/td[{}]//text()'.format(i + 1, infoIndex[y]))[0].strip()
+method = int(method if method != '' else '0')
 
-    if data(3) == '在线开放课程':
-        continue
-    for c in dom.xpath(xpath + '/tr[{}]/td[{}]//text()'.format(i + 1, infoIndex[1])):
-        teacher = data(3)
-        c = c[c.find('星期'):].strip()
-        name = data(0)
+res = GetClass.get(method)
 
-        infoList = c.split(' ')
-        for j in infoList[2].split(','):
-            time = infoList[1].split('-')
-            week = j.replace('[', '').replace(']', '').split('-')
+with open('settings/ClassInfo.json', 'w', encoding='utf8') as f2:
+    f2.write(json.dumps(res, ensure_ascii=False, indent=4))
 
-            res.append({
-                "name": name,
-                "week": {
-                    "start": week[0],
-                    "end": week[-1]
-                },
-                "day": dic[infoList[0]],
-                "time": {
-                    "start": time[0],
-                    "end": time[1],
-                },
-                "room": infoList[3],
-                "teacher": teacher,
-            })
-
-with open('settings/classInfo.json', 'w', encoding='utf8') as f:
-    json.dump(res, f, indent=4, ensure_ascii=False)
