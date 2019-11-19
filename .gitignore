@@ -7,5 +7,5 @@ geckodriver.log
 __pycache__
 
 web
-
+.vscode
 classTable/res.ics
