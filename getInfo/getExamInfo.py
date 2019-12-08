@@ -19,7 +19,7 @@ from functions.getUserName_Password import remove_cache
 
 long_len, short_len = 0, 8
 DEBUG = 0
-Term = 18
+Term = 19
 
 def table_info():
     global exam, grade, grade_index, long_len, short_len
