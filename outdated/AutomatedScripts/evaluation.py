@@ -11,7 +11,7 @@ import sys
 sys.path.append('..')
 from functions import getUserName_Password
 
-userName, password = getUserName_Password.get(is_input=False)
+userName, password = getUserName_Password.get(is_input=True)
 
 d = webdriver.Chrome()
 d.get('http://us.nwpu.edu.cn/eams/login.action')

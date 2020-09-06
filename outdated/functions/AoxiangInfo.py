@@ -9,18 +9,22 @@ urlLogin = 'http://us.nwpu.edu.cn/eams/login.action'
 
 
 def login(username, password, headers):
-    if username is None or password is None:
-        username, password = getUserName_Password.get(is_input=False)
+    url = 'https://uis.nwpu.edu.cn/cas/login'
 
-    dataLogin = {
+    s = requests.Session()
+    s.headers.update({
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36",
+    })
+
+    s.get(url)
+    s.post(url, data={
         'username': username,
         'password': password,
-        'session_locale': 'zh_CN',
-    }
-
-    conn = requests.session()
-    conn.post(url=urlLogin, data=dataLogin, headers=headers)
-    return conn
+        'currentMenu': 1,
+        'execution': 'e1s1',
+        '_eventId': 'submit',
+    })
+    return s
 
 
 def get(url, headers={}, cookies={}, username=None, password=None):
