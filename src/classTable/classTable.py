@@ -31,12 +31,12 @@ class ClassTable():
             body = []
             for ct in classTable:
                 body.append(ICS.body(name=ct['title']
-                    , start=ct['start']
-                    , end=ct['end']
+                    , start=ct['startTime'][:8] + 'T' + ct['startTime'][8:] + 'Z'
+                    , end=ct['stopTime'][:8] + 'T' + ct['stopTime'][8:] + 'Z'
                     , location=ct['location']
                     , description=''
                     , alarm=kwargs['alarm']
-                     , alarmDescription=''))
+                    , alarmDescription=''))
             body = '\n'.join(body)
 
             footer = ICS.footer()
