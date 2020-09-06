@@ -1,0 +1,43 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+
+import argh
+from argh import arg
+
+
+@arg('-t', '--term', help='terms', nargs='+')
+def grade(**kwargs):
+    '''
+    获取考试成绩
+    '''
+    from src.grade import Grade
+
+    username = kwargs['username']
+    password = open(kwargs['password']).read().strip()
+
+    g = Grade(username=username, password=password)
+    g.output(*kwargs['term'])
+
+
+@arg('-t', '--term', help='terms', nargs='+')
+def exam(**kwargs):
+    '''
+    获取考试安排
+    '''
+    from src.exam import Exam
+
+    username = kwargs['username']
+    password = open(kwargs['password']).read().strip()
+
+    e = Exam(username=username, password=password)
+    e.output(*kwargs['term'])
+
+
+if __name__ == '__main__':
+    parser = argh.ArghParser()
+    parser.add_argument('-u', '--username', required=True, help='username')
+    parser.add_argument('-p', '--password', required=True, help='password FILE path')
+    parser.add_commands([grade, exam])
+
+    parser.dispatch()
