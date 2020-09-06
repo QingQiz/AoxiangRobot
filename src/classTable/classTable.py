@@ -13,16 +13,43 @@ class ClassTable():
         :param timeStart:
         :param timeEnd:
         :param **kwargs:
-            output: output file
-            alarm: alarm before event
+            :output str: output file
+            :alarm int: alarm before event
         '''
-        classTable = self.aoxiang.classTable(timeStart, timeEnd)
-
         if kwargs['output']:
-            raise NotImplementedError('TODO')
+            import os
+            from .ics import ICS
+            from QingQiz import log
+
+            if os.path.exists(kwargs['output']):
+                log.e('file exists')
+
+            classTable = self.aoxiang.classTable(timeStart, timeEnd)
+
+            header = ICS.header(f'{timeStart} - {timeEnd} 课表')
+
+            body = []
+            for ct in classTable:
+                body.append(ICS.body(name=ct['title']
+                    , start=ct['start']
+                    , end=ct['end']
+                    , location=ct['location']
+                    , description=''
+                    , alarm=kwargs['alarm']
+                     , alarmDescription=''))
+            body = '\n'.join(body)
+
+            footer = ICS.footer()
+
+            with open(kwargs['output'], 'w') as f:
+                print(header, file=f)
+                print(body, file=f)
+                print(footer, file=f)
         else:
             from rich.console import Console
             from rich.table import Table
+
+            classTable = self.aoxiang.classTable(timeStart, timeEnd)
 
             console = Console()
 
