@@ -17,10 +17,14 @@ def grade(**kwargs):
     password = open(kwargs['password']).read().strip()
 
     g = Grade(username=username, password=password)
-    g.output(*kwargs['term'])
+
+    if kwargs['term']:
+        g.output(*kwargs['term'])
+    else:
+        g.output()
 
 
-@arg('-t', '--term', help='terms', nargs='+')
+@arg('-t', '--term', help='terms', nargs='+', required=True)
 def exam(**kwargs):
     '''
     获取考试安排

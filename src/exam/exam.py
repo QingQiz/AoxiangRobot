@@ -12,6 +12,7 @@ class Exam():
         '''
         :param terms: terms to exam information
         '''
+        from datetime import datetime
         from rich.console import Console
         from rich.table import Table
 
@@ -29,11 +30,20 @@ class Exam():
             exam = list(sorted(map(lambda x: x[1][1:-1], exam), reverse=True))
 
             table = Table(title=term, width=120)
+            rowStyles = []
             for h in header:
                 table.add_column(h)
             for e in exam:
                 table.add_row(*e)
-            table.row_styles = ['dim', 'none']
-            # TODO only dim outdated exam
+
+                examDate = e[2] + ' ' + e[3].split('~')[-1] + ':00'
+                examDate = datetime.strptime(examDate, '%Y-%m-%d %H:%M:%S')
+
+                if datetime.now() > examDate:
+                    rowStyles.append('dim')
+                else:
+                    rowStyles.append('none')
+
+            table.row_styles = rowStyles
 
             console.print(table)

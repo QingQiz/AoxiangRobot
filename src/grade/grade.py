@@ -31,9 +31,9 @@ class Grade():
 
             table = Table(title=title, width=120)
             for h in header[3:]:
-                table.add_column(h)
+                table.add_column(h.replace('成绩', ''))
             for g in grade:
                 table.add_row(*g)
-            table.row_styles = ['dim', 'none']
+            table.row_styles = ['none', 'dim']
 
             console.print(table)
