@@ -38,10 +38,28 @@ def exam(**kwargs):
     e.output(*kwargs['term'])
 
 
+@arg('-s', '--start', help='time start, for example: 2020-9-1', required=True)
+@arg('-e', '--end', help='time end, for example: 2020-12-31', required=True)
+@arg('-o', '--output', help='output classtable to the file in `ics` format')
+@arg('-a', '--alarm', help='alarm before class, default: 20, set 0 to disable alarm', default=20)
+def classTable(**kwargs):
+    '''
+    获取课表
+    '''
+    from src.classTable import ClassTable
+
+    username = kwargs['username']
+    password = open(kwargs['password']).read().strip()
+
+    ct = ClassTable(username=username, password=password)
+    ct.output(kwargs['start'], kwargs['end'], **kwargs)
+
+
 if __name__ == '__main__':
     parser = argh.ArghParser()
     parser.add_argument('-u', '--username', required=True, help='username')
     parser.add_argument('-p', '--password', required=True, help='password FILE path')
-    parser.add_commands([grade, exam])
+
+    parser.add_commands([grade, exam, classTable])
 
     parser.dispatch()
