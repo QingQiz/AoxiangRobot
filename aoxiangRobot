@@ -6,7 +6,7 @@ import argh
 from argh import arg
 
 
-@arg('-t', '--term', help='terms', nargs='+')
+@arg('-t', '--term', help='terms, for example: 19', nargs='+')
 def grade(**kwargs):
     '''
     获取考试成绩
@@ -24,7 +24,7 @@ def grade(**kwargs):
         g.output()
 
 
-@arg('-t', '--term', help='terms', nargs='+', required=True)
+@arg('-t', '--term', help='terms, for example: 19', nargs='+', required=True)
 def exam(**kwargs):
     '''
     获取考试安排
@@ -38,8 +38,8 @@ def exam(**kwargs):
     e.output(*kwargs['term'])
 
 
-@arg('-s', '--start', help='time start, for example: 2020-9-1, default: today')
-@arg('-e', '--end', help='time end, for example: 2020-12-31, default: today + 180 days')
+@arg('-s', '--start', help='time start, for example: 2020-9-1, today by default')
+@arg('-e', '--end', help='time end, for example: 2020-12-31, today + 180 days by default')
 @arg('-o', '--output', help='output classtable to the file in `ics` format')
 @arg('-a', '--alarm', help='alarm before class, default: 20, set 0 to disable alarm', default=20)
 def classTable(**kwargs):
