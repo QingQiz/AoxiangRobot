@@ -38,15 +38,20 @@ def exam(**kwargs):
     e.output(*kwargs['term'])
 
 
-@arg('-s', '--start', help='time start, for example: 2020-9-1', required=True)
-@arg('-e', '--end', help='time end, for example: 2020-12-31', required=True)
+@arg('-s', '--start', help='time start, for example: 2020-9-1, default: today')
+@arg('-e', '--end', help='time end, for example: 2020-12-31, default: today + 180 days')
 @arg('-o', '--output', help='output classtable to the file in `ics` format')
 @arg('-a', '--alarm', help='alarm before class, default: 20, set 0 to disable alarm', default=20)
 def classTable(**kwargs):
     '''
     获取课表
     '''
+    import os
+    from QingQiz import log
     from src.classTable import ClassTable
+
+    if kwargs['output'] and os.path.exists(kwargs['output']):
+        log.yes_or_no(f'{kwargs["output"]} exists, overwrite it?')
 
     username = kwargs['username']
     password = open(kwargs['password']).read().strip()

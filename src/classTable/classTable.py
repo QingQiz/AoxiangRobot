@@ -21,9 +21,6 @@ class ClassTable():
             from .ics import ICS
             from QingQiz import log
 
-            if os.path.exists(kwargs['output']):
-                log.e('file exists')
-
             classTable = self.aoxiang.classTable(timeStart, timeEnd)
 
             header = ICS.header(f'{timeStart} - {timeEnd} 课表')
@@ -31,8 +28,8 @@ class ClassTable():
             body = []
             for ct in classTable:
                 body.append(ICS.body(name=ct['title']
-                    , start=ct['startTime'][:8] + 'T' + ct['startTime'][8:] + 'Z'
-                    , end=ct['stopTime'][:8] + 'T' + ct['stopTime'][8:] + 'Z'
+                    , start=ct['startTime'][:8] + 'T' + ct['startTime'][8:]
+                    , end=ct['stopTime'][:8] + 'T' + ct['stopTime'][8:]
                     , location=ct['location']
                     , description=''
                     , alarm=kwargs['alarm']
