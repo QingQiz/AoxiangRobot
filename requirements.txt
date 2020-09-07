@@ -1,7 +1,3 @@
 argh
-pycryptodome
-python-pam
-requests
-rich
 
 QingQiz @ git+https://github.com/QingQiz/python_modules
