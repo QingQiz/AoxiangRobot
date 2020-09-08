@@ -38,9 +38,23 @@ def exam(**kwargs):
     e.output(*kwargs['term'])
 
 
+@arg('-t', '--term', help='terms, for example: 19', required=True)
+def courses(**kwargs):
+    '''
+    或取我的课程信息
+    '''
+    from src.classTable import ClassTable
+
+    username = kwargs['username']
+    password = open(kwargs['password']).read().strip()
+
+    e = ClassTable(username=username, password=password)
+    e.output(kwargs['term'])
+
+
 @arg('-s', '--start', help='time start, for example: 2020-9-1, today by default')
 @arg('-e', '--end', help='time end, for example: 2020-12-31, today + 180 days by default')
-@arg('-o', '--output', help='output classtable to the file in `ics` format')
+@arg('-o', '--output', help='output classtable to the file in `ics` format', required=True)
 @arg('-a', '--alarm', help='alarm before class, default: 20, set 0 to disable alarm', default=20)
 def classTable(**kwargs):
     '''
@@ -50,14 +64,15 @@ def classTable(**kwargs):
     from QingQiz import log
     from src.classTable import ClassTable
 
-    if kwargs['output'] and os.path.exists(kwargs['output']):
-        log.yes_or_no(f'{kwargs["output"]} exists, overwrite it?')
+    if os.path.exists(kwargs['output']):
+        if not log.yes_or_no(f'{kwargs["output"]} exists, overwrite it?'):
+            log.e('Abort.')
 
     username = kwargs['username']
     password = open(kwargs['password']).read().strip()
 
     ct = ClassTable(username=username, password=password)
-    ct.output(kwargs['start'], kwargs['end'], **kwargs)
+    ct.export(kwargs['start'], kwargs['end'], **kwargs)
 
 
 if __name__ == '__main__':
@@ -65,6 +80,6 @@ if __name__ == '__main__':
     parser.add_argument('-u', '--username', required=True, help='username')
     parser.add_argument('-p', '--password', required=True, help='password FILE path')
 
-    parser.add_commands([grade, exam, classTable])
+    parser.add_commands([grade, exam, courses, classTable])
 
     parser.dispatch()
