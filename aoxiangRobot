@@ -63,18 +63,27 @@ def me(**kwargs):
     password = open(kwargs['password']).read().strip()
 
     console = Console()
-    table = Table(title='我的信息')
 
-    info = Aoxiang(username=username, password=password).userInfo.items()
+    res = Aoxiang(username=username, password=password).userInfo
 
-    header = list(map(lambda x: x[0], info))
-    row = list(map(lambda x: x[1], info))
+    for i in res:
+        table = Table(title=i, show_header=False, width=120)
 
-    for h in header:
-        table.add_column(h)
-    table.add_row(*row)
+        info = list(res[i].items())
 
-    console.print(table)
+        if len(info) % 2:
+            info.append(('', ''))
+
+        table.add_column('', width=20)
+        table.add_column('', width=40)
+        table.add_column('', width=20)
+        table.add_column('', width=40)
+
+        for x in range(0, len(info), 2):
+            table.add_row(*(info[x] + info[x + 1]))
+        table.row_styles = ['none', 'dim']
+
+        console.print(table)
 
 @arg('-s', '--start', help='time start, for example: 2020-9-1, today by default')
 @arg('-e', '--end', help='time end, for example: 2020-12-31, today + 180 days by default')
