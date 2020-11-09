@@ -51,6 +51,7 @@ def courses(**kwargs):
     e = ClassTable(username=username, password=password)
     e.output(kwargs['term'])
 
+
 def me(**kwargs):
     '''
     获取当前账号信息
@@ -85,6 +86,7 @@ def me(**kwargs):
 
         console.print(table)
 
+
 @arg('-s', '--start', help='time start, for example: 2020-9-1, today by default')
 @arg('-e', '--end', help='time end, for example: 2020-12-31, today + 180 days by default')
 @arg('-o', '--output', help='output classtable to the file in `ics` format', required=True)
@@ -108,11 +110,37 @@ def classTable(**kwargs):
     ct.export(kwargs['start'], kwargs['end'], **kwargs)
 
 
+def yqtb(**kwargs):
+    '''
+    疫情填报
+    '''
+    from rich.console import Console
+    from rich.table import Table
+
+    from QingQiz.netreq.aoxiang import Aoxiang
+
+    username = kwargs['username']
+    password = open(kwargs['password']).read().strip()
+
+    res = Aoxiang(username, password).yqtb()
+
+    table = Table(title='Result')
+
+    table.add_column('A')
+    table.add_column('B')
+
+    for i in res:
+        table.add_row(i, res[i])
+    table.row_styles = ['dim', 'none']
+
+    Console().print(table)
+
+
 if __name__ == '__main__':
     parser = argh.ArghParser()
     parser.add_argument('-u', '--username', required=True, help='username')
     parser.add_argument('-p', '--password', required=True, help='password FILE path')
 
-    parser.add_commands([grade, exam, courses, classTable, me])
+    parser.add_commands([grade, exam, courses, classTable, me, yqtb])
 
     parser.dispatch()
