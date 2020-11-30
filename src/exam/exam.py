@@ -36,6 +36,10 @@ class Exam():
             for e in exam:
                 table.add_row(*e)
 
+                if e[2] is None or e[3] is None:
+                    rowStyles.append('dim')
+                    continue
+
                 examDate = e[2] + ' ' + e[3].split('~')[-1] + ':00'
                 examDate = datetime.strptime(examDate, '%Y-%m-%d %H:%M:%S')
 
