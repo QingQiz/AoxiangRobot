@@ -16,8 +16,15 @@ class Grade():
         from rich.table import Table
 
         grades = self.aoxiang.grade(*terms)
+        grade_sum = 0
+        score_sum = 0
 
         console = Console()
+
+        def is_number(num):
+            import re
+            pattern = re.compile(r'^[-+]?[-0-9]\d*\.\d*|[-+]?\.?[0-9]\d*$')
+            return bool(pattern.match(num))
 
         # grade: [{head: value, head: value}, {...}]
         for grade in grades:
@@ -33,7 +40,21 @@ class Grade():
             for h in header[3:]:
                 table.add_column(h.replace('成绩', ''))
             for g in grade:
+                g = list(g)
+
+                # 修复sb教务乱显示的成绩
+                g[-2] = g[-2][:2] if g[-2] != '100' else g[-2]
+                g[-2] = '95' if g[-2] == 'A' else g[-2]
                 table.add_row(*g)
+
+                if (is_number(g[-2][:2])) and is_number(g[-1]):
+                    grade_sum += float(g[2])
+                    score_sum += float(g[-2])*float(g[2])
+                else:
+                    print('GPA排除: 【'+str(g[0])+','+str(g[-2][:2])+','+str(g[-1])+'】')
+
             table.row_styles = ['none', 'dim']
 
             console.print(table)
+            print(f'AVG: {score_sum / grade_sum}')
+            print(f'SUM: {len(grade)} 门课程')
