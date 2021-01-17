@@ -21,4 +21,10 @@
 
   `./aoxiangRobot -u 2017000000 -p ./password classTable -o res.ics -a 20`
 
+- 疫情填报
+
+  `./aoxiangRobot -u 2017000000 -p ./password yqtb`
+
+  `./aoxiangRobot -u 2017000000 -p ./password yqtb -l 西安`
+
 - 详见: `./aoxiangRobot --help` 或 `./aoxiangRobot sub-command -h`
