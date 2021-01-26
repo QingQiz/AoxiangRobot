@@ -14,10 +14,13 @@ class Grade():
         '''
         from rich.console import Console
         from rich.table import Table
+        from rich.markdown import Markdown
 
         grades = self.aoxiang.grade(*terms)
         grade_sum = 0
         score_sum = 0
+
+        gpa_exclude = []
 
         console = Console()
 
@@ -51,10 +54,14 @@ class Grade():
                     grade_sum += float(g[2])
                     score_sum += float(g[-2])*float(g[2])
                 else:
-                    print('GPA排除: 【'+str(g[0])+','+str(g[-2][:2])+','+str(g[-1])+'】')
+                    gpa_exclude.append((g[0], g[-2][:2], g[-1]))
 
             table.row_styles = ['none', 'dim']
 
             console.print(table)
-            print(f'AVG: {score_sum / grade_sum}')
-            print(f'SUM: {len(grade)} 门课程')
+
+            md =  "GPA **排除**:\n" + "\n\n".join(map(lambda x: f'- **{x[0]}**: *{x[1]}*, *{x[2]}*', gpa_exclude))
+            md += f"\n\n共 **{len(grade)}** 门课程，学分绩估算： **{score_sum / grade_sum :.2f}**"
+
+            console.print(Markdown(md))
+            console.print("\n")
