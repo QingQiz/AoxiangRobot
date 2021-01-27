@@ -61,7 +61,7 @@ class Grade():
             console.print(table)
 
             md =  "GPA **排除**:\n" + "\n\n".join(map(lambda x: f'- **{x[0]}**: *{x[1]}*, *{x[2]}*', gpa_exclude))
-            md += f"\n\n共 **{len(grade)}** 门课程，学分绩估算： **{score_sum / grade_sum :.2f}**"
+            md += f"\n\n共 **{len(grade)}** 门课程，学分绩估算： **{score_sum / grade_sum :.4f}**"
 
             console.print(Markdown(md))
             console.print("\n")
