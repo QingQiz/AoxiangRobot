@@ -16,9 +16,7 @@ class ClassTable():
             :output str: output file
             :alarm int: alarm before event
         '''
-        import os
         from .ics import ICS
-        from QingQiz import log
 
         classTable = self.aoxiang.classTable(timeStart, timeEnd)
 
@@ -27,17 +25,17 @@ class ClassTable():
         body = []
         for ct in classTable:
             body.append(ICS.body(name=ct['title']
-                , start=ct['startTime'][:8] + 'T' + ct['startTime'][8:]
-                , end=ct['stopTime'][:8] + 'T' + ct['stopTime'][8:]
-                , location=ct['location']
-                , description=''
+                , start=ct['startDate'].replace('-', '').replace(' ', 'T').replace(':', '')
+                , end=ct['endDate'].replace('-', '').replace(' ', 'T').replace(':', '')
+                , location=ct['address']
+                , description=ct['id']
                 , alarm=kwargs['alarm']
                 , alarmDescription=''))
         body = '\n'.join(body)
 
         footer = ICS.footer()
 
-        with open(kwargs['output'], 'w') as f:
+        with open(kwargs['output'], 'w', encoding='utf8') as f:
             print(header, file=f)
             print(body, file=f)
             print(footer, file=f)
