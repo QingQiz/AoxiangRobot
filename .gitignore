@@ -9,3 +9,5 @@ __pycache__
 web
 
 *.ics
+
+venv
