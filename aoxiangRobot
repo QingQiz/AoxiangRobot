@@ -110,7 +110,9 @@ def classTable(**kwargs):
     ct.export(kwargs['start'], kwargs['end'], **kwargs)
 
 
-@arg('-l', '--location', default='学校', help='对应疫情填报中的当前位置字段，查看所有允许的位置，看：`http://yqtb.nwpu.edu.cn/wx/js/eams.area.data.js`')
+@arg('-p', '--province', default=None, help='对应疫情填报中的省，在学校/在西安可不填')
+@arg('-c', '--city', default=None, help='对应疫情填报中的市，直辖市填市辖区或县，在学校/在西安可不填')
+@arg('-l', '--location', default='在学校', help='对应疫情填报中的当前位置（在学校/在西安）或区/县字段，查看所有允许的位置，看：`http://yqtb.nwpu.edu.cn/wx/js/eams.area.data.js`')
 def yqtb(**kwargs):
     '''
     疫情填报
@@ -123,7 +125,7 @@ def yqtb(**kwargs):
     username = kwargs['username']
     password = open(kwargs['password']).read().strip()
 
-    res = Aoxiang(username, password).yqtb(location=kwargs['location'])
+    res = Aoxiang(username, password).yqtb(province=kwargs['province'], city=kwargs['city'], location=kwargs['location'])
 
     table = Table(title='Result')
 
