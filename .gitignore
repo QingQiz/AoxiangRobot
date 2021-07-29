@@ -10,4 +10,4 @@ web
 
 *.ics
 
-venv
+venv/
