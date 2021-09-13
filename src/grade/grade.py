@@ -2,16 +2,13 @@
 # -*- coding: utf-8 -*-
 
 
-class Grade():
+class Grade:
     def __init__(self, username=None, password=None):
-        from QingQiz.netreq.aoxiang import Aoxiang
+        from src.netreq.aoxiang import Aoxiang
 
         self.aoxiang = Aoxiang(username, password)
 
     def output(self, *terms):
-        '''
-        :param terms: terms to get grade
-        '''
         from rich.console import Console
         from rich.table import Table
         from rich.markdown import Markdown
@@ -60,7 +57,7 @@ class Grade():
 
             console.print(table)
 
-            md =  "GPA **排除**:\n" + "\n\n".join(map(lambda x: f'- **{x[0]}**: *{x[1]}*, *{x[2]}*', gpa_exclude))
+            md = "GPA **排除**:\n" + "\n\n".join(map(lambda x: f'- **{x[0]}**: *{x[1]}*, *{x[2]}*', gpa_exclude))
             md += f"\n\n共 **{len(grade)}** 门课程，学分绩估算： **{score_sum / grade_sum :.4f}**"
 
             console.print(Markdown(md))

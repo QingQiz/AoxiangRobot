@@ -8,9 +8,9 @@ from argh import arg
 
 @arg('-t', '--term', help='terms, for example: 19', nargs='+')
 def grade(**kwargs):
-    '''
+    """
     获取考试成绩
-    '''
+    """
     from src.grade import Grade
 
     username = kwargs['username']
@@ -26,9 +26,9 @@ def grade(**kwargs):
 
 @arg('-t', '--term', help='terms, for example: 19', nargs='+', required=True)
 def exam(**kwargs):
-    '''
+    """
     获取考试安排
-    '''
+    """
     from src.exam import Exam
 
     username = kwargs['username']
@@ -40,9 +40,9 @@ def exam(**kwargs):
 
 @arg('-t', '--term', help='terms, for example: 19', required=True)
 def courses(**kwargs):
-    '''
+    """
     获取我的课程信息
-    '''
+    """
     from src.classTable import ClassTable
 
     username = kwargs['username']
@@ -53,12 +53,12 @@ def courses(**kwargs):
 
 
 def me(**kwargs):
-    '''
+    """
     获取当前账号信息
-    '''
+    """
     from rich.console import Console
     from rich.table import Table
-    from QingQiz.netreq.aoxiang import Aoxiang
+    from src.netreq.aoxiang import Aoxiang
 
     username = kwargs['username']
     password = open(kwargs['password']).read().strip()
@@ -92,11 +92,11 @@ def me(**kwargs):
 @arg('-o', '--output', help='output classtable to the file in `ics` format', required=True)
 @arg('-a', '--alarm', help='alarm before class, default: 20, set 0 to disable alarm', default=20)
 def classTable(**kwargs):
-    '''
+    """
     获取课表
-    '''
+    """
     import os
-    from QingQiz import log
+    from src import log
     from src.classTable import ClassTable
 
     if os.path.exists(kwargs['output']):
@@ -114,13 +114,13 @@ def classTable(**kwargs):
 @arg('-c', '--city', default=None, help='对应疫情填报中的市，直辖市填市辖区或县，在学校/在西安可不填')
 @arg('-l', '--location', default='在学校', help='对应疫情填报中的当前位置（在学校/在西安）或区/县字段，查看所有允许的位置，看：`http://yqtb.nwpu.edu.cn/wx/js/eams.area.data.js`')
 def yqtb(**kwargs):
-    '''
+    """
     疫情填报
-    '''
+    """
     from rich.console import Console
     from rich.table import Table
 
-    from QingQiz.netreq.aoxiang import Aoxiang
+    from src.netreq.aoxiang import Aoxiang
 
     username = kwargs['username']
     password = open(kwargs['password']).read().strip()

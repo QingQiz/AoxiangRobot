@@ -2,20 +2,20 @@
 # -*- coding: utf-8 -*-
 
 
-class ClassTable():
+class ClassTable:
     def __init__(self, username, password):
-        from QingQiz.netreq.aoxiang import Aoxiang
+        from src.netreq.aoxiang import Aoxiang
 
         self.aoxiang = Aoxiang(username, password)
 
     def export(self, timeStart, timeEnd, **kwargs):
-        '''export classTable in ics format
+        """export classTable in ics format
         :param timeStart:
         :param timeEnd:
         :param **kwargs:
             :output str: output file
             :alarm int: alarm before event
-        '''
+        """
         from .ics import ICS
 
         classTable = self.aoxiang.classTable(timeStart, timeEnd)
@@ -41,9 +41,9 @@ class ClassTable():
             print(footer, file=f)
 
     def output(self, term):
-        '''output current courses
+        """output current courses
         :param term: term, for example: 19
-        '''
+        """
         import functools
         from rich.console import Console
         from rich.table import Table

@@ -2,21 +2,21 @@
 # -*- coding: utf-8 -*-
 
 
-class Exam():
+class Exam:
     def __init__(self, username=None, password=None):
-        from QingQiz.netreq.aoxiang import Aoxiang
+        from src.netreq.aoxiang import Aoxiang
 
         self.aoxiang = Aoxiang(username, password)
 
     def output(self, *terms):
-        '''
+        """
         :param terms: terms to exam information
-        '''
+        """
         from datetime import datetime
         from rich.console import Console
         from rich.table import Table
 
-        exams = self.aoxiang.examInformations(*terms)
+        exams = self.aoxiang.examInformation(*terms)
 
         console = Console()
 
