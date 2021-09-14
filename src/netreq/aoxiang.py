@@ -213,9 +213,7 @@ class Aoxiang:
 
         # 获取 xIdToken, 参考翱翔门户 `webpack:///./src/utils/decodeTicket.js`
         ticket: str
-        ticket = \
-            self.session.get('https://uis.nwpu.edu.cn/cas/login?service=https://ecampus.nwpu.edu.cn/').url.split('=')[
-                -1]
+        ticket = self.req('https://uis.nwpu.edu.cn/cas/login?service=https://ecampus.nwpu.edu.cn/').url.split('=')[-1]
         ticket = ticket.replace("%2B", '+').replace("%3D", '=').split('.')[1]
         self._xIdToken = json.loads(base64.b64decode(ticket.encode('utf8')).decode('utf8'))['idToken']
 
