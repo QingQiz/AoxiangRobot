@@ -520,7 +520,7 @@ class Aoxiang:
 
         uid = self.userInfo['basicInformation']['id']
         name = self.userInfo['basicInformation']['name']
-        org = self.userInfo['basicInformation']['org']
+        # org = self.userInfo['basicInformation']['org']
 
         locationDict = {
             "在学校": "1",
@@ -559,14 +559,15 @@ class Aoxiang:
         self.req('http://yqtb.nwpu.edu.cn/')
 
         # fetch mobile number
-        r = self.req('http://yqtb.nwpu.edu.cn/wx/ry/jbxx_v.jsp')
-        mobile = re.findall(r'手机号码.*?([0-9]+)', r.text, re.DOTALL)[0]
+        # r = self.req('http://yqtb.nwpu.edu.cn/wx/ry/jbxx_v.jsp')
+        # mobile = re.findall(r'手机号码.*?([0-9]+)', r.text, re.DOTALL)[0]
 
         data = {
+            "hsjc": "1",  # 核酸检测，我默认你检测了，不负责
             "xasymt": "1",  # 西安市一码通
             "actionType": "addRbxx",
             "userLoginId": uid,
-            "fxzt": "9",  # 返校状态
+            # "fxzt": "9",  # 返校状态
             "userType": "2",  # 猜不出来
             "userName": name,
             "szcsbm": locCode,  # 所在城市编码
@@ -576,12 +577,17 @@ class Aoxiang:
             "tbly": "sso",  # 填报(？留言)
             "qtqksm": "",  # 其它情况说明
             "ycqksm": "",  # ？？情况说明
-            "qrlxzt": "",  # 确认离（？留）校状态
-            "xymc": org,  # 学院名称
-            "xssjhm": mobile,  # 学生手机号码
+            # "qrlxzt": "",  # 确认离（？留）校状态
+            # "xymc": org,  # 学院名称
+            # "xssjhm": mobile,  # 学生手机号码
         }
 
-        self.req('http://yqtb.nwpu.edu.cn/wx/ry/ry_util.jsp', data=data, headers={
+        # 学校加了点校验参数，所以不能直接请求了
+        # 但是他这个校验参数直接写在了html页面里就。。。
+        html = self.req('http://yqtb.nwpu.edu.cn/wx/ry/jrsb.jsp').text
+        report_url = re.findall(r"url:'(ry_ut.*?)'", html)[0]
+
+        self.req(f'http://yqtb.nwpu.edu.cn/wx/ry/{report_url}', data=data, headers={
             "Referer": "http://yqtb.nwpu.edu.cn/wx/ry/jrsb.jsp",
             "Origin": "http://yqtb.nwpu.edu.cn",
             "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
