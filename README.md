@@ -23,8 +23,8 @@
 
 - 疫情填报
 
-  `./aoxiangRobot -u 2017000000 -p ./password yqtb -m 12312341234`
+  `./aoxiangRobot -u 2017000000 -p ./password yqtb`
 
-  `./aoxiangRobot -u 2017000000 -p ./password yqtb -l 西安 --mobile 12312341234`
+  `./aoxiangRobot -u 2017000000 -p ./password yqtb -l 西安`
 
 - 详见: `./aoxiangRobot --help` 或 `./aoxiangRobot sub-command -h`
